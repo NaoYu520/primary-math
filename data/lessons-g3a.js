@@ -112,7 +112,7 @@ var L_G3A = [
         "先算 25×4=100，再算 100×4=400。"
       ],
       answer: "400。",
-      anim: { type: "roundnum", expr: "25×16=25×4×4", result: 400 },
+      anim: { type: "roundnum", expr: "100+100+100+100", pairs: [[0, 3]], result: 400 },
       variants: [
         { type: "fill", html: "用简便方法计算：25×24＝？", answer: "600",
           analysis: "24 拆成 4×6：25×4×6＝100×6＝600。" },
@@ -219,7 +219,16 @@ var L_G3A = [
         "再看十位：2×3＋进位 1＝7，正好。所以方框填 5，积是 75。"
       ],
       answer: "25×3＝75，两个方框都填 5。",
-      anim: { type: "vertical", cells: [{ pos: "被乘数个位", val: 5 }, { pos: "积的个位", val: 5 }] },
+      anim: { type: "fillgrid", title: "乘法数字谜：2□×3＝7□",
+        cells: [
+          { id: "p2", row: 1, col: 1, val: "2", label: "被乘数" },
+          { id: "p5", row: 1, col: 2, val: "5", say: "看个位：方框×3，积的个位还是这个数。试 5：5×3＝15，写 5 进 1。" },
+          { id: "m3", row: 2, col: 1, val: "3", label: "乘数" },
+          { id: "q7", row: 3, col: 1, val: "7", label: "积" },
+          { id: "q5", row: 3, col: 2, val: "5", say: "十位 2×3＋进位 1＝7，正好；积的个位写 5。25×3＝75。" }
+        ],
+        order: ["p5", "q5"],
+        final: "25×3＝75，两个方框都填 5。" },
       variants: [
         { type: "fill", html: "在竖式 □5×2＝9□ 中，被乘数十位方框填几？", answer: "4",
           analysis: "个位 5×2＝10，写 0 进 1；十位 □×2＋1＝9，□×2＝8，□＝4，即 45×2＝90。" },
@@ -331,7 +340,16 @@ var L_G3A = [
         "试商的十位为 1：1×2＋1＝3，所以被除数是 34，商是 17。验算 17×2＝34。"
       ],
       answer: "34÷2＝17，被除数十位填 3，商的十位填 1。",
-      anim: { type: "vertical", cells: [{ pos: "被除数十位", val: 3 }, { pos: "商的十位", val: 1 }] },
+      anim: { type: "fillgrid", title: "除法数字谜：□4÷2＝□7",
+        cells: [
+          { id: "d3", row: 1, col: 1, val: "3", say: "十位：商的十位 1×2＋进位 1＝3，被除数十位填 3。验算 17×2＝34。" },
+          { id: "d4", row: 1, col: 2, val: "4" },
+          { id: "dv2", row: 2, col: 1, val: "2", label: "除数" },
+          { id: "q1", row: 3, col: 1, val: "1", say: "商的个位是 7：7×2＝14，被除数个位正好是 4，向十位进 1；试商的十位填 1。" },
+          { id: "q7", row: 3, col: 2, val: "7" }
+        ],
+        order: ["q1", "d3"],
+        final: "34÷2＝17，被除数十位填 3，商的十位填 1。" },
       variants: [
         { type: "fill", html: "在竖式 □6÷3＝22 中，被除数方框填几？", answer: "6",
           analysis: "商 22×除数 3＝66，所以被除数是 66，方框填 6。" },
@@ -427,7 +445,7 @@ var L_G3A = [
         "11＋5＝16，16＋6＝22。"
       ],
       answer: "16，22。",
-      anim: { type: "count", kind: "line", grid: [1, 2, 4, 7, 11, 16, 22] },
+      anim: { type: "cycle", seq: ["#2B8A83", "#3E6FB2", "#E9A23B"], nth: 6 },
       variants: [
         { type: "fill", html: "找规律填数：1，3，6，10，（　），（　）。", answer: "15，21",
           analysis: "相邻差 2，3，4，5，6：10＋5＝15，15＋6＝21。" },

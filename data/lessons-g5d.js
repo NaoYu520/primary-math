@@ -229,7 +229,7 @@ var L_G5D = [
         "所以至少称2次就一定能找出。"
       ],
       answer: "至少称2次。",
-      anim: { type: "balance", left: "A份3瓶", right: "B份3瓶", steps: ["称A与B", "若平衡次品在C", "不平衡次品在轻的一份"] },
+      anim: { type: "balance", chains: [{ l: "A份", ln: 3, r: "B份", rn: 3 }, { l: "3瓶", ln: 1, r: "次品", rn: 1 }], result: 3 },
       variants: [
         { type: "fill", html: "27瓶里有1瓶偏轻，用天平至少称几次保证找出？", answer: "3",
           analysis: "27=3×3×3，分3份每份9→3→1，共3次。" },
@@ -531,7 +531,7 @@ var L_G5D = [
         "所以小红坐在第4列第5行。"
       ],
       answer: "第4列第5行。",
-      anim: { type: "count", kind: "square", grid: [[1,1],[2,1],[3,1],[1,2],[2,2],[3,2]] },
+      anim: { type: "count", kind: "square", n: 5 },
       variants: [
         { type: "fill", html: "第2列第3行，用数对表示是（　，　）。", answer: "（2，3）",
           analysis: "先列后行：列2、行3。" },
@@ -733,7 +733,7 @@ var L_G5D = [
         "带钱要往大估，大约准备500元比较稳妥。"
       ],
       answer: "大约480元（带钱建议准备500元）。",
-      anim: { type: "roundnum", expr: "12×41≈12×40", result: 480 },
+      anim: { type: "roundnum", expr: "400+80", pairs: [[0, 1]], result: 480 },
       variants: [
         { type: "fill", html: "估算：79×21≈？", answer: "1600",
           analysis: "79≈80，21≈20，80×20=1600。" },

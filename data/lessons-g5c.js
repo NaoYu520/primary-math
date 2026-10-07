@@ -19,7 +19,7 @@ var L_G5C = [
         "还要被 3 整除：各位和 1＋□＋0 是 3 的倍数，□最小取 2（1＋2＝3）。所以是 120。"
       ],
       answer: "120。",
-      anim: { type: "count", kind: "line", grid: [120, 150, 180] },
+      anim: { type: "count", kind: "line", points: 16 },
       variants: [
         { type: "fill", html: "能同时被 3、5 整除的最大两位数是几？", answer: "90",
           analysis: "末位是 0 或 5；90（9＋0＝9 是 3 的倍数）最大，95（14 不是）不行。" },
@@ -209,7 +209,7 @@ var L_G5C = [
         "三样都借的 4 人在第一步被加了 3 次、第二步被减了 3 次，等于没算，要补回：39＋4＝43 人。"
       ],
       answer: "43 人。",
-      anim: { type: "venn", sets: [{ n: 25 }, { n: 20 }, { n: 18 }], both: 4 },
+      anim: { type: "venn", a: 35, b: 18, both: 10 },
       variants: [
         { type: "fill", html: "A=30，B=25，A、B都有 10，至少在 A 或 B 中出现的共有几个？", answer: "45",
           analysis: "30＋25－10＝45 个。" },
@@ -402,7 +402,7 @@ var L_G5C = [
         "合作天数：1÷(1/6)＝6 天。"
       ],
       answer: "6 天。",
-      anim: { type: "progress", rates: [{ who: "甲", rate: "1/10" }, { who: "乙", rate: "1/15" }], days: 6 },
+      anim: { type: "progress", rates: [{ who: "甲", rate: 0.1 }, { who: "乙", rate: 0.0667 }], days: 6 },
       variants: [
         { type: "fill", html: "甲单独 6 天完成，乙单独 12 天完成，合作几天完成？", answer: "4",
           analysis: "1/6＋1/12＝2/12＋1/12＝3/12＝1/4；1÷1/4＝4 天。" },
@@ -786,7 +786,7 @@ var L_G5C = [
         "原有草＝144－6×14＝144－84＝60 份。19 头牛每周除了吃掉新长的 14 份，还吃原有草 19－14＝5 份；可吃 60÷5＝12 周。"
       ],
       answer: "12 周。",
-      anim: { type: "progress", rates: [{ who: "牛19头", rate: "19/周" }, { who: "新长草", rate: "14/周" }], days: 12 },
+      anim: { type: "progress", rates: [{ who: "19头牛", rate: 0.3167 }, { who: "新长草", rate: -0.2333 }], days: 12 },
       variants: [
         { type: "fill", html: "接例1，草每周新长多少份？", answer: "14",
           analysis: "(200－144)÷(10－6)＝56÷4＝14 份/周。" },
@@ -883,7 +883,7 @@ var L_G5C = [
         "每个大格 30°，夹角＝3×30°＝90°。"
       ],
       answer: "90°。",
-      anim: { type: "clock", start: "3:00", end: "3:00" },
+      anim: { type: "clock", sh: [3, 0], eh: [3, 0] },
       variants: [
         { type: "fill", html: "6 点整，时针和分针夹角是多少度？", answer: "180",
           analysis: "相隔 6 个大格：6×30°＝180°。" },

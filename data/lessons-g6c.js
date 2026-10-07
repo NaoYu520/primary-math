@@ -19,7 +19,7 @@ var L_G6C = [
         "合修时间＝1÷1/6＝6 天。"
       ],
       answer: "6 天。",
-      anim: { type: "progress", rates: [{ who: "甲队", rate: "1/10" }, { who: "乙队", rate: "1/15" }], days: 6 },
+      anim: { type: "progress", rates: [{ who: "甲队", rate: 0.1 }, { who: "乙队", rate: 0.0667 }], days: 6 },
       variants: [
         { type: "fill", html: "甲单独 12 天完成，乙单独 24 天完成，两队合做几天？", answer: "8",
           analysis: "合作效率＝1/12＋1/24＝2/24＋1/24＝3/24＝1/8，合做 1÷1/8＝8 天。" },
@@ -117,7 +117,7 @@ var L_G6C = [
         "原有草＝200－20×5＝100 份。25 头牛中 5 头吃新长的草，剩 20 头吃原有草：100÷(25－5)＝5 天。"
       ],
       answer: "5 天。",
-      anim: { type: "progress", rates: [{ who: "25头牛", rate: "25/天" }, { who: "新长草", rate: "5/天" }], days: 5 },
+      anim: { type: "progress", rates: [{ who: "净吃草", rate: 0.2 }], days: 5 },
       variants: [
         { type: "fill", html: "一片草 27 头牛 6 周吃完，23 头牛 9 周吃完。21 头牛几周吃完？", answer: "12",
           analysis: "27×6＝162，23×9＝207；差 45 份是 3 周新长，每周长 15 份；原有＝162－6×15＝72；21 头牛中 15 头吃新草，72÷(21－15)＝12 周。" },
@@ -313,7 +313,7 @@ var L_G6C = [
         "都不参加＝全班 40－35＝5 人。"
       ],
       answer: "至少参加一组 35 人，都不参加 5 人。",
-      anim: { type: "venn", sets: [{ n: 25 }, { n: 20 }], both: 10 },
+      anim: { type: "venn", a: 25, b: 20, both: 10 },
       variants: [
         { type: "fill", html: "全班 50 人，喜欢苹果 30 人，喜欢梨 25 人，都喜欢 15 人。都不喜欢的有几人？", answer: "10",
           analysis: "至少喜欢＝30＋25－15＝40 人，都不喜欢＝50－40＝10 人。" },
@@ -411,7 +411,9 @@ var L_G6C = [
         "最小公倍数取所有质因数较高次幂：2⁴×3²＝16×9＝144。"
       ],
       answer: "最大公因数 12，最小公倍数 144。",
-      anim: { type: "count", kind: "line", grid: [2, 2, 3, 2, 2, 2, 3, 3] },
+      anim: { type: "factortree", mode: "short", nums: [36, 48], divisors: [2, 2, 3],
+        result: 12,
+        resultLabel: "最大公因数＝左边公因数 2×2×3＝12；最小公倍数＝再乘最后的商 3×4，即 2×2×3×3×4＝144。" },
       variants: [
         { type: "fill", html: "求 24 和 36 的最大公因数。", answer: "12",
           analysis: "24＝2³×3，36＝2²×3²，公共较低次幂 2²×3＝12。" },

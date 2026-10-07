@@ -19,7 +19,7 @@ var L_G4A = [
         "第 10 项 = 3 +（10－1）× 4 = 3 + 36 = 39。"
       ],
       answer: "39。",
-      anim: { type: "count", kind: "line", grid: [3, 7, 11, 15, 19, 23] },
+      anim: { type: "roundnum", terms: [3, 36], pairs: [[0, 1]], result: 39 },
       variants: [
         { type: "fill", html: "数列 2，5，8，11，…… 第 12 项是几？", answer: "35",
           analysis: "公差 3，第 12 项 = 2 +（12－1）× 3 = 2 + 33 = 35。" },
@@ -117,7 +117,7 @@ var L_G4A = [
         "3 + 10 = 13（根）。"
       ],
       answer: "13 根。",
-      anim: { type: "count", kind: "line", grid: [3, 5, 7, 9, 11, 13] },
+      anim: { type: "roundnum", terms: [3, 10], pairs: [[0, 1]], result: 13 },
       variants: [
         { type: "fill", html: "一堆砖，最下层 20 块，往上每层少 2 块，共 5 层，最上层几块？", answer: "12",
           analysis: "第 5 层 = 20－（5－1）× 2 = 20－8 = 12。" },
@@ -216,7 +216,16 @@ var L_G4A = [
         "100×6 = 600。"
       ],
       answer: "600。",
-      anim: { type: "roundnum", expr: "25×24=25×4×6", result: 600 },
+      anim: { type: "fillgrid", title: "乘法巧算：25×24",
+        cells: [
+          { id: "e1", row: 1, col: 1, val: "25×24", label: "原式" },
+          { id: "e2", row: 1, col: 2, val: "25×4×6", label: "24拆成4×6", say: "看到 25 就找 4：把 24 拆成 4×6，原式变成 25×4×6。" },
+          { id: "e3", row: 1, col: 3, val: "100×6", label: "25×4=100", say: "先凑整：25×4＝100，原式变成 100×6。" },
+          { id: "e4", row: 1, col: 4, val: "600", label: "结果", say: "100×6＝600。" }
+        ],
+        edges: [{ from: "e1", to: "e2" }, { from: "e2", to: "e3" }, { from: "e3", to: "e4" }],
+        order: ["e2", "e3", "e4"],
+        final: "25×24＝25×4×6＝100×6＝600。" },
       variants: [
         { type: "fill", html: "用简便方法计算：25×36＝？", answer: "900",
           analysis: "36 拆成 4×9，25×4×9 = 100×9 = 900。" },
@@ -311,7 +320,15 @@ var L_G4A = [
         "1600÷100 = 16。"
       ],
       answer: "16。",
-      anim: { type: "roundnum", expr: "400÷25=(400×4)÷(25×4)", result: 16 },
+      anim: { type: "fillgrid", title: "除法巧算：400÷25",
+        cells: [
+          { id: "e1", row: 1, col: 1, val: "400÷25", label: "原式" },
+          { id: "e2", row: 1, col: 2, val: "1600÷100", label: "同时×4", say: "商不变：被除数、除数同时乘 4，400×4＝1600，25×4＝100，变成 1600÷100。" },
+          { id: "e3", row: 1, col: 3, val: "16", label: "结果", say: "1600÷100＝16。" }
+        ],
+        edges: [{ from: "e1", to: "e2" }, { from: "e2", to: "e3" }],
+        order: ["e2", "e3"],
+        final: "400÷25＝(400×4)÷(25×4)＝1600÷100＝16。" },
       variants: [
         { type: "fill", html: "用简便方法计算：300÷25＝？", answer: "12",
           analysis: "（300×4）÷（25×4）= 1200÷100 = 12。" },
@@ -405,7 +422,7 @@ var L_G4A = [
         "12 + 3 + 4 = 19。"
       ],
       answer: "19。",
-      anim: { type: "vertical", cells: [{ pos: "代入", val: "3×4+3+4" }, { pos: "结果", val: 19 }] },
+      anim: { type: "vertical", top: [1, null], bottom: [0, 7], sum: [1, 9], fills: [{ pos: "t0", val: 2 }] },
       variants: [
         { type: "fill", html: "规定 a★b = a×b + a + b，求 5★2＝？", answer: "17",
           analysis: "5×2 + 5 + 2 = 10 + 7 = 17。" },

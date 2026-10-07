@@ -20,7 +20,7 @@ var L_G5A = [
         "从 56 的右边起数出 2 位点上小数点，得到 0.56。"
       ],
       answer: "0.56。",
-      anim: { type: "vertical", cells: [{ pos: "8×7", val: 56 }, { pos: "两位小数点出", val: 56 }] },
+      anim: { type: "paint", denom: 100, numer: 56, shape: "rect" },
       variants: [
         { type: "fill", html: "用竖式计算：0.6×0.9＝？", answer: "0.54",
           analysis: "6×9=54，两个因数共 2 位小数，得 0.54。" },
@@ -112,7 +112,7 @@ var L_G5A = [
         "算得 1.2。"
       ],
       answer: "1.2。",
-      anim: { type: "roundnum", expr: "4.8×0.25=4.8÷4", result: 1.2 },
+      anim: { type: "roundnum", expr: "1+0.2", pairs: [[0, 1]], result: 1.2 },
       variants: [
         { type: "fill", html: "用简便方法计算：5.2×0.25＝？", answer: "1.3",
           analysis: "5.2×0.25＝5.2÷4＝1.3。" },
@@ -203,7 +203,12 @@ var L_G5A = [
         "验算：4.7＋3.5＝8.2，正确。"
       ],
       answer: "x＝4.7。",
-      anim: { type: "balance", left: "x＋3.5", right: "8.2", steps: ["两边同时减 3.5", "x＝4.7"] },
+      anim: { type: "bar",
+        parts: [
+          { n: 3.5, color: "#3E6FB2", label: "已知 3.5" },
+          { n: 4.7, color: "#E9A23B", label: "未知 x" }
+        ],
+        total: "全长 8.2" },
       variants: [
         { type: "fill", html: "解方程：x－2.4＝5.6，x＝？", answer: "8",
           analysis: "两边同时加 2.4：x＝5.6＋2.4＝8。" },
@@ -676,7 +681,7 @@ var L_G5A = [
         "按从小到大排列：1、2、3、6、9、18，共 6 个。"
       ],
       answer: "18 的因数有 1、2、3、6、9、18。",
-      anim: { type: "count", kind: "line", grid: [1, 2, 3, 6, 9, 18] },
+      anim: { type: "count", kind: "line", points: 4 },
       variants: [
         { type: "fill", html: "写出 20 的所有因数。", answer: "1,2,4,5,10,20",
           analysis: "1×20、2×10、4×5，共 6 个。" },
@@ -770,7 +775,9 @@ var L_G5A = [
         "所以 17 是质数。"
       ],
       answer: "17 是质数。",
-      anim: { type: "vertical", cells: [{ pos: "17 的因数", val: 1 }, { pos: "只有 1 和 17", val: 17 }] },
+      anim: { type: "factortree", mode: "tree", n: 17,
+        nodes: [ { id: "n17", parent: null, label: "17" } ],
+        final: "17 是质数：它的因数只有 1 和 17，不能再分解。" },
       variants: [
         { type: "fill", html: "19 是质数还是合数？", answer: "质数",
           analysis: "19 的因数只有 1 和 19，所以是质数。" },

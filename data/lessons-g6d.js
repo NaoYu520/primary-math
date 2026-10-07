@@ -19,7 +19,18 @@ var L_G6D = [
         "＝(99＋1)×38＝100×38＝3800。"
       ],
       answer: "3800。",
-      anim: { type: "roundnum", expr: "99×38+38=(99+1)×38", result: 3800 },
+      anim: { type: "fillgrid", title: "99×38＋38 用乘法分配律",
+        cells: [
+          { id: "m99", row: 0, col: 0, val: 99 },
+          { id: "m38a", row: 0, col: 1, val: 38 },
+          { id: "m38b", row: 0, col: 2, val: 38 },
+          { id: "one", row: 0, col: 3, val: 1, say: "把后面单独的 38 看成 38×1，补上因数 1。" },
+          { id: "h100", row: 1, col: 0, val: 100, say: "提取公因数 38：99＋1＝100。" },
+          { id: "m38c", row: 1, col: 1, val: 38 },
+          { id: "r3800", row: 1, col: 2, val: 3800, say: "100×38＝3800。" }
+        ],
+        order: ["one", "h100", "r3800"],
+        final: "99×38＋38＝(99＋1)×38＝100×38＝3800。" },
       variants: [
         { type: "fill", html: "用简便方法计算：101×56－56＝？", answer: "5600",
           analysis: "＝(101－1)×56＝100×56＝5600。" },
@@ -717,7 +728,16 @@ var L_G6D = [
         "所以被乘数个位填 5，积的个位填 5，即 25×3＝75。"
       ],
       answer: "25×3＝75，两个方框都填 5。",
-      anim: { type: "vertical", cells: [{ pos: "被乘数个位", val: 5 }, { pos: "积的个位", val: 5 }] },
+      anim: { type: "fillgrid", title: "竖式填数谜：2□×3＝7□",
+        cells: [
+          { id: "tensA", row: 0, col: 0, val: 2 },
+          { id: "unitsA", row: 0, col: 1, val: 5, say: "个位试填：5×3＝15，写 5 进 1。" },
+          { id: "mul", row: 1, col: 1, val: 3 },
+          { id: "tensP", row: 2, col: 0, val: 7 },
+          { id: "unitsP", row: 2, col: 1, val: 5, say: "十位 2×3＋进位1＝7，积的个位也是 5：25×3＝75。" }
+        ],
+        order: ["unitsA", "unitsP"],
+        final: "25×3＝75，两个方框都填 5。" },
       variants: [
         { type: "fill", html: "竖式 □4×2＝68 中，十位方框填几？", answer: "3",
           analysis: "个位 4×2＝8，十位 □×2＝6，□＝3，即 34×2＝68。" },

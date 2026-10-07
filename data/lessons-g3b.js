@@ -546,7 +546,13 @@ var L_G3B = [
         "20×2＝40（米）。"
       ],
       answer: "40 米。",
-      anim: { type: "count", kind: "line", grid: { segments: [12, 8, 12, 8] } },
+      anim: { type: "bar", total: "周长(米)",
+        parts: [
+          { n: 12, color: "#2B8A83", label: "长12米" },
+          { n: 8, color: "#E9A23B", label: "宽8米" },
+          { n: 12, color: "#2B8A83", label: "长12米" },
+          { n: 8, color: "#E9A23B", label: "宽8米" }
+        ] },
       variants: [
         { type: "fill", html: "长方形长 15 厘米，宽 6 厘米，周长是多少厘米？",
           answer: "42", analysis: "(15＋6)×2＝21×2＝42 厘米。" },

@@ -19,7 +19,7 @@ var L_G4B = [
         "把两类方法数相加：6＋5＝11。"
       ],
       answer: "11种。",
-      anim: { type: "count", kind: "line", grid: [6, 5] },
+      anim: { type: "roundnum", terms: [6, 5], pairs: [[0, 1]], result: 11 },
       variants: [
         { type: "fill", html: "文具店有铅笔8支、钢笔4支。任取一支笔，有多少种取法？", answer: "12",
           analysis: "两类相加：8＋4＝12。" },
@@ -413,7 +413,22 @@ var L_G4B = [
         "37个位是7，既不能被2整除也不能被5整除。"
       ],
       answer: "被2整除：24,120,200；被5整除：35,120,200。",
-      anim: { type: "count", kind: "line", grid: [24, 35, 120, 37, 200] },
+      anim: { type: "fillgrid", title: "挑出能被2或5整除的数",
+        cells: [
+          { id: "n24", row: 0, col: 0, val: 24 },
+          { id: "n35", row: 0, col: 1, val: 35 },
+          { id: "n120", row: 0, col: 2, val: 120 },
+          { id: "n37", row: 0, col: 3, val: 37 },
+          { id: "n200", row: 0, col: 4, val: 200 },
+          { id: "d24", row: 1, col: 0, val: 24, say: "看个位：24 的个位是4（偶数），能被2整除。" },
+          { id: "d120a", row: 1, col: 1, val: 120, say: "120 的个位是0，能被2整除。" },
+          { id: "d200a", row: 1, col: 2, val: 200, say: "200 的个位是0，能被2整除。" },
+          { id: "d35", row: 2, col: 0, val: 35, say: "再看能被5整除的：35 的个位是5。" },
+          { id: "d120b", row: 2, col: 1, val: 120, say: "120 的个位是0，也能被5整除。" },
+          { id: "d200b", row: 2, col: 2, val: 200, say: "200 的个位是0，也能被5整除；37 都不行。" }
+        ],
+        order: ["d24", "d120a", "d200a", "d35", "d120b", "d200b"],
+        final: "被2整除：24,120,200；被5整除：35,120,200。" },
       variants: [
         { type: "fill", html: "下面哪些数能被2整除：18,23,40,57。写出能被2整除的数。", answer: "18,40",
           analysis: "个位是偶数的能被2整除：18(个位8)、40(个位0)。" },
@@ -510,7 +525,20 @@ var L_G4B = [
         "17的因数只有1和17→质数；21的因数有1,3,7,21→合数。"
       ],
       answer: "质数：7,11,17；合数：9,15,21。",
-      anim: { type: "count", kind: "line", grid: [7, 9, 11, 15, 17, 21] },
+      anim: { type: "fillgrid", title: "从 7,9,11,15,17,21 中挑出质数",
+        cells: [
+          { id: "c7", row: 0, col: 0, val: 7 },
+          { id: "c9", row: 0, col: 1, val: 9 },
+          { id: "c11", row: 0, col: 2, val: 11 },
+          { id: "c15", row: 0, col: 3, val: 15 },
+          { id: "c17", row: 0, col: 4, val: 17 },
+          { id: "c21", row: 0, col: 5, val: 21 },
+          { id: "p7", row: 1, col: 0, val: 7, say: "7 的因数只有 1 和 7，是质数，填出来。" },
+          { id: "p11", row: 1, col: 1, val: 11, say: "11 的因数只有 1 和 11，是质数。" },
+          { id: "p17", row: 1, col: 2, val: 17, say: "17 的因数只有 1 和 17，是质数；9,15,21 是合数。" }
+        ],
+        order: ["p7", "p11", "p17"],
+        final: "质数：7,11,17；合数：9,15,21。" },
       variants: [
         { type: "fill", html: "下面哪些是质数：5,8,13,18。写出质数。", answer: "5,13",
           analysis: "5和13的因数只有1和本身；8=2×4、18=2×9是合数。" },
@@ -609,7 +637,15 @@ var L_G4B = [
         "3是质数。所以12＝2×2×3。"
       ],
       answer: "12＝2×2×3。",
-      anim: { type: "vertical", cells: [{ pos: "12÷2", val: 6 }, { pos: "6÷2", val: 3 }] },
+      anim: { type: "factortree", mode: "tree", n: 12,
+        nodes: [
+          { id: "n12", parent: null, label: "12" },
+          { id: "a2", parent: "n12", label: "2", say: "把 12 除以 2：12÷2＝6，2 是质数。" },
+          { id: "n6", parent: "n12", label: "6", say: "剩下 6 还能继续往下分。" },
+          { id: "b2", parent: "n6", label: "2", say: "把 6 除以 2：6÷2＝3，2 是质数。" },
+          { id: "c3", parent: "n6", label: "3", say: "3 是质数，分完了。" }
+        ],
+        final: "12＝2×2×3。" },
       variants: [
         { type: "fill", html: "把18分解质因数。", answer: "18=2×3×3",
           analysis: "18÷2=9，9÷3=3，3是质数。" },
@@ -706,7 +742,9 @@ var L_G4B = [
         "所有除数相乘：2×3＝6。"
       ],
       answer: "6。",
-      anim: { type: "vertical", cells: [{ pos: "÷2", val: 6 }, { pos: "÷3", val: 2 }] },
+      anim: { type: "factortree", mode: "short", nums: [12, 18], divisors: [2, 3],
+        result: 6,
+        resultLabel: "把左边的公因数相乘：2×3＝6，所以 12 和 18 的最大公因数是 6。" },
       variants: [
         { type: "fill", html: "求16和24的最大公因数。", answer: "8",
           analysis: "÷2得8和12，÷2得4和6，÷2得2和3。除数相乘2×2×2＝8。" },
@@ -803,7 +841,9 @@ var L_G4B = [
         "2×2×3＝12。"
       ],
       answer: "12。",
-      anim: { type: "vertical", cells: [{ pos: "÷2", val: 2 }, { pos: "×3", val: 3 }] },
+      anim: { type: "factortree", mode: "short", nums: [4, 6], divisors: [2],
+        result: 12,
+        resultLabel: "除到商互质：4÷2＝2，6÷2＝3。最小公倍数＝公因数2×最后的商2×3＝12。" },
       variants: [
         { type: "fill", html: "求6和8的最小公倍数。", answer: "24",
           analysis: "÷2得3和4互质。2×3×4＝24。" },

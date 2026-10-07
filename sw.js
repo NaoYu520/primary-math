@@ -8,6 +8,7 @@ var PRECACHE = [
   './js/anime-t1.js',
   './js/anime-t2.js',
   './js/anime-t3.js',
+  './js/anime-t4.js',
   './js/games.js',
   './js/gen.js',
   './js/gen2-g34.js',

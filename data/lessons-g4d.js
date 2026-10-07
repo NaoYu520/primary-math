@@ -117,7 +117,7 @@ var L_G4D = [
         "所以两份都订的有6人。"
       ],
       answer: "6人。",
-      anim: { type: "venn", sets: [{ n: 26, items: "数学报" }, { n: 22, items: "语文报" }], both: 6 },
+      anim: { type: "venn", a: 26, b: 22, both: 6 },
       variants: [
         { type: "fill", html: "全班40人，订漫画25人、订故事书20人，每人至少订一种。两种都订几人？", answer: "5",
           analysis: "25＋20－40＝5人。" },
@@ -215,7 +215,17 @@ var L_G4D = [
         "每条线上的和＝(15＋3)÷2＝9；剩下1、2、4、5，1＋5＝6、2＋4＝6，加中间3正好都是9。"
       ],
       answer: "中间填3，横1、3、5，竖2、3、4，每条线上的和都是9。",
-      anim: { type: "vertical", cells: [{ pos: "中心", val: 3 }, { pos: "横左", val: 1 }, { pos: "横右", val: 5 }] },
+      anim: { type: "fillgrid", title: "十字数阵：填 1～5",
+        cells: [
+          { id: "t", row: 1, col: 2, val: 2, say: "竖行上面填 2。" },
+          { id: "l", row: 2, col: 1, val: 1, say: "横行左边填 1。" },
+          { id: "c", row: 2, col: 2, val: 3, say: "五个数总和 15，中间被两条线各算一次；15 是单数，中间填单数，试 3。" },
+          { id: "r", row: 2, col: 3, val: 5, say: "横行右边填 5：1＋3＋5＝9。" },
+          { id: "b", row: 3, col: 2, val: 4, say: "竖行下面填 4：2＋3＋4＝9，每条线的和都是 9。" }
+        ],
+        edges: [{ from: "c", to: "t" }, { from: "c", to: "b" }, { from: "c", to: "l" }, { from: "c", to: "r" }],
+        order: ["c", "t", "b", "l", "r"],
+        final: "中间填3，横1、3、5，竖2、3、4，每条线上的和都是9。" },
       variants: [
         { type: "fill", html: "把2、3、4、5、6填十字形，中间填几能让横竖和相等？", answer: "4",
           analysis: "总和20，中间须是偶数；试中间4：每条和(20＋4)÷2＝12，剩2,3,5,6配2＋6、3＋5正好。" },
@@ -313,7 +323,7 @@ var L_G4D = [
         "合计9＋62＝71个数字。"
       ],
       answer: "71个。",
-      anim: { type: "count", kind: "line", grid: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 40] },
+      anim: { type: "roundnum", terms: [9, 62], pairs: [[0, 1]], result: 71 },
       variants: [
         { type: "fill", html: "一本25页的书，排页码共用多少个数字？", answer: "41",
           analysis: "9＋(25－9)×2＝9＋32＝41个。" },

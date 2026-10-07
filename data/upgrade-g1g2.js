@@ -138,7 +138,7 @@ var UPG = {
     {type:"choice", html:"1 支钢笔换 2 支铅笔，1 支铅笔换 3 块橡皮。1 支钢笔换几块橡皮？", options:["5 块","6 块","9 块"], answer:1, analysis:"2 支铅笔各换 3 块橡皮：2×3＝6 块。"},
     {type:"judge", html:"天平两边平衡时，两边的东西一样重。", answer:true, analysis:"天平平衡就是两边一样重，说法正确。"}
   ],
-  anim: [ {ei:0, spec:{type:"balance", chains:["1苹果=2橘子","1橘子=3糖"], result:6}} ]
+  anim: [ {ei:0, spec:{type:"balance", chains:[{l:"苹果",ln:1,r:"橘子",rn:2},{l:"橘子",ln:1,r:"糖",rn:3}], result:6}} ]
 },
 
 "g1-16": {
@@ -183,7 +183,18 @@ var UPG = {
     {type:"choice", html:"横行是 2＋（ ）＋6＝12，括号里应填几？", options:["3","4","5"], answer:1, analysis:"12－2－6＝4，中间填 4。"},
     {type:"judge", html:"数阵图里，处在交叉点（中间）的数会被两条线各算一次。", answer:true, analysis:"交叉点是两条线共用的，所以算两次，说法正确。"}
   ],
-  anim: [ {ei:0, spec:{type:"vertical", top:1, bottom:5, sum:9, fills:[{pos:1, val:3}]}} ]
+  anim: [ {ei:0, spec:{type:"fillgrid", title:"十字数阵：填 1～5",
+    cells:[
+      {id:"t", row:1, col:2, val:2, say:"竖行上面填 2。"},
+      {id:"l", row:2, col:1, val:1, say:"横行左边填 1。"},
+      {id:"c", row:2, col:2, val:3, say:"中间的圈横行、竖行都要用到，先定中间：填 3。"},
+      {id:"r", row:2, col:3, val:5, say:"横行右边填 5：1＋3＋5＝9。"},
+      {id:"b", row:3, col:2, val:4, say:"竖行下面填 4：2＋3＋4＝9，每条线的和都是 9。"}
+    ],
+    edges:[{from:"c",to:"t"},{from:"c",to:"b"},{from:"c",to:"l"},{from:"c",to:"r"}],
+    order:["c","t","b","l","r"],
+    final:"中间填 3；横行 1、3、5，竖行 2、3、4，每条线的和都是 9。"
+  }} ]
 },
 
 /* ===================== 二年级 ===================== */
@@ -275,7 +286,7 @@ var UPG = {
     {type:"choice", html:"已知 △＋○＝15，△＝○＋○。○＝？", options:["5","10","3"], answer:0, analysis:"把 △ 换成两个 ○：3 个 ○＝15，一个 ○＝5。"},
     {type:"judge", html:"天平平衡时，把左边一个物体换成和它一样重的物体，天平仍然平衡。", answer:true, analysis:"两边重量没变，天平仍平衡，说法正确。"}
   ],
-  anim: [ {ei:0, spec:{type:"balance", chains:["1西瓜=3菠萝","1菠萝=2苹果"], result:6}} ]
+  anim: [ {ei:0, spec:{type:"balance", chains:[{l:"西瓜",ln:1,r:"菠萝",rn:3},{l:"菠萝",ln:1,r:"苹果",rn:2}], result:6}} ]
 },
 
 "g2-11": {
@@ -311,7 +322,17 @@ var UPG = {
     {type:"choice", html:"移动一根火柴使 9－3＝5 成立，应改成下面哪个？", options:["9－3＝6","9＋3＝6","8－3＝5"], answer:0, analysis:"9－3 本来就等于 6，把得数 5 改成 6 即可成立。"},
     {type:"judge", html:"移动火柴棒题目，通常只允许改变一根火柴的位置。", answer:true, analysis:"这类题的规则一般是“移动一根”，说法正确。"}
   ],
-  anim: [ {ei:0, spec:{type:"vertical", top:9, bottom:4, sum:7, fills:[{pos:"op", val:"-"}]}} ]
+  anim: [ {ei:0, spec:{type:"fillgrid", title:"移动一根火柴：9＋4＝1",
+    cells:[
+      {id:"n9", row:1, col:1, val:"9"},
+      {id:"op", row:1, col:2, val:"－", say:"原式 9＋4＝1 不成立。把加号中间那根竖棒拿走，加号就变成减号：9－4。"},
+      {id:"n4", row:1, col:3, val:"4"},
+      {id:"eq", row:1, col:4, val:"="},
+      {id:"res", row:1, col:5, val:"7", say:"把这根竖棒放到右边 1 的头顶，1 变成 7：9－4＝7。"}
+    ],
+    order:["op","res"],
+    final:"把加号上的竖棒移到右边 1 上，变成 9－4＝7。"
+  }} ]
 },
 
 "g2-15": {
@@ -320,7 +341,18 @@ var UPG = {
     {type:"choice", html:"上题中间填 3 时，每条线上三个数的和是多少？", options:["8","9","10"], answer:1, analysis:"1＋3＋5＝9，2＋3＋4＝9，每条线的和都是 9。"},
     {type:"judge", html:"数阵图里，处在交叉点的那个数会被两条线各计算一次。", answer:true, analysis:"交叉点被横行、竖行共用，所以算两次，说法正确。"}
   ],
-  anim: [ {ei:0, spec:{type:"vertical", top:1, bottom:5, sum:9, fills:[{pos:1, val:3}]}} ]
+  anim: [ {ei:0, spec:{type:"fillgrid", title:"十字数阵：填 1～5",
+    cells:[
+      {id:"t", row:1, col:2, val:1, say:"竖行上面填 1。"},
+      {id:"l", row:2, col:1, val:2, say:"横行左边填 2。"},
+      {id:"c", row:2, col:2, val:3, say:"五个数总和 15，中间被两条线各算一次；试中间填 3。"},
+      {id:"r", row:2, col:3, val:4, say:"横行右边填 4：2＋3＋4＝9。"},
+      {id:"b", row:3, col:2, val:5, say:"竖行下面填 5：1＋3＋5＝9，每条线的和都是 9。"}
+    ],
+    edges:[{from:"c",to:"t"},{from:"c",to:"b"},{from:"c",to:"l"},{from:"c",to:"r"}],
+    order:["c","t","b","l","r"],
+    final:"中间填 3，上下填 1 和 5，左右填 2 和 4，每条线上三个数的和是 9。"
+  }} ]
 },
 
 "g2-16": {
@@ -374,7 +406,16 @@ var UPG = {
     {type:"choice", html:"一个数减去 3 得 7，这个数是多少？", options:["4","10","21"], answer:1, analysis:"倒推：7＋3＝10。"},
     {type:"judge", html:"倒推时，原来是加的要改成减，原来是乘的要改成除。", answer:true, analysis:"倒推用逆运算：加变减、乘变除，说法正确。"}
   ],
-  anim: [ {ei:0, spec:{type:"vertical", top:3, bottom:5, sum:8, fills:[{pos:"×2", val:16}]}} ]
+  anim: [ {ei:0, spec:{type:"fillgrid", title:"倒推：一个数＋5，再×2＝16",
+    cells:[
+      {id:"r16", row:1, col:1, val:16, label:"最后结果"},
+      {id:"r8", row:1, col:2, val:8, label:"÷2", say:"结果 16 是乘 2 得到的，倒推除以 2：16÷2＝8。"},
+      {id:"r3", row:1, col:3, val:3, label:"－5", say:"8 是加 5 得到的，倒推减去 5：8－5＝3。原来这个数是 3。"}
+    ],
+    edges:[{from:"r16",to:"r8"},{from:"r8",to:"r3"}],
+    order:["r8","r3"],
+    final:"倒推：16÷2＝8，8－5＝3。这个数是 3。"
+  }} ]
 },
 
 "g2-22": {
@@ -392,7 +433,7 @@ var UPG = {
     {type:"choice", html:"2 千克等于多少克？", options:["200 克","2000 克","20000 克"], answer:1, analysis:"1 千克＝1000 克，2 千克＝2000 克。"},
     {type:"judge", html:"1 时＝60 分。", answer:true, analysis:"时间单位换算：1 时＝60 分，说法正确。"}
   ],
-  anim: [ {ei:2, spec:{type:"balance", chains:["1千克=1000克","1袋=500克"], result:2}} ]
+  anim: [ {ei:2, spec:{type:"balance", chains:[{l:"千克",ln:1,r:"袋",rn:2},{l:"袋",ln:1,r:"克",rn:1}], result:2}} ]
 },
 
 "g2-24": {

@@ -1,0 +1,26 @@
+{
+  "name": "小学奥数举一反三",
+  "short_name": "小学奥数",
+  "description": "小学1-2年级45讲奥数思维训练：例题分步精讲、举一反三练习、24点/数独/火柴棒小游戏，可离线学习。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F2F0E6",
+  "theme_color": "#2B8A83",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

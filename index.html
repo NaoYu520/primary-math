@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小学奥数举一反三</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="小学奥数">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232B8A83'/%3E%3Ctext x='32' y='45' font-size='36' text-anchor='middle' fill='%23FFFFFF' font-family='KaiTi,serif'%3E%E6%95%B0%3C/text%3E%3C/svg%3E">
+<script src="js/gen.js"></script>
+<script src="js/games.js"></script>
+<script src="data/lessons-seed.js"></script>
+<script src="data/lessons-g1a.js"></script>
+<script src="data/lessons-g1b.js"></script>
+<script src="data/lessons-g1c.js"></script>
+<script src="data/lessons-g1d.js"></script>
+<script src="data/lessons-g2a.js"></script>
+<script src="data/lessons-g2b.js"></script>
+<script src="data/lessons-g2c.js"></script>
+<script src="data/lessons-g2d.js"></script>
+<script src="data/lessons-g2e.js"></script>
+<style>
+/* ============ 设计变量 ============ */
+:root{
+  --paper:#F2F0E6;
+  --card:#FCFDF9;
+  --ink:#26313A;
+  --ink-soft:#51606A;
+  --ink-faint:#8A949C;
+  --teal:#2B8A83;
+  --teal-dark:#1F6E68;
+  --teal-soft:#E3F0EE;
+  --blue:#3E6FB2;
+  --blue-soft:#E7EEF8;
+  --cyan:#7FC3B8;
+  --amber:#E9A23B;
+  --amber-soft:#F8E8C8;
+  --green:#53A06B;
+  --green-soft:#E6F2EA;
+  --red:#D8664E;
+  --red-soft:#F9E9E4;
+  --line:#DFE2D6;
+  --shadow:0 2px 12px rgba(40,70,80,.08);
+  --shadow-lg:0 8px 28px rgba(40,70,80,.12);
+  --font-ui:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Noto Sans SC",sans-serif;
+  --font-num:"Rounded Mplus 1c","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font-ui);
+  color:var(--ink);
+  background-color:var(--paper);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(43,138,131,.06), transparent 42%),
+    radial-gradient(circle at 88% 72%, rgba(62,111,178,.06), transparent 46%),
+    radial-gradient(circle at 70% 10%, rgba(233,162,59,.05), transparent 40%);
+  min-height:100vh;
+  line-height:1.65;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.hidden{display:none !important}
+.fig{display:block;max-width:100%;height:auto;margin:10px auto}
+svg{max-width:100%}
+
+/* ============ 顶栏 ============ */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(242,240,230,.94);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:1180px;margin:0 auto;padding:10px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer}
+.brand-seal{
+  width:40px;height:40px;border-radius:11px;background:var(--teal);
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:24px;font-weight:700;
+  box-shadow:0 3px 8px rgba(43,138,131,.35);
+}
+.brand-name{font-size:23px;font-weight:700;letter-spacing:2px;color:var(--teal-dark)}
+.brand-sub{font-size:10px;color:var(--ink-faint);letter-spacing:2px}
+.top-actions{display:flex;gap:8px}
+.icon-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 13px;border-radius:9px;border:1px solid var(--line);
+  background:var(--card);font-size:14px;color:var(--ink-soft);
+  transition:all .15s;
+}
+.icon-btn:hover{border-color:var(--teal);color:var(--teal)}
+.icon-btn.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.icon-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.icon-btn .badge{
+  min-width:18px;height:18px;padding:0 5px;border-radius:9px;
+  background:var(--red);color:#fff;font-size:11px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.icon-btn.active .badge{background:#fff;color:var(--teal)}
+
+/* ============ 主容器 ============ */
+.wrap{max-width:1180px;margin:0 auto;padding:24px 20px 70px}
+
+/* ============ 首页 Hero ============ */
+.hero{
+  background:linear-gradient(135deg,var(--card) 0%,#F3F8F6 100%);
+  border:1px solid var(--line);border-radius:18px;
+  padding:28px 32px;box-shadow:var(--shadow);
+  display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;
+  background:radial-gradient(circle,rgba(233,162,59,.14),transparent 70%);
+}
+.hero-title{font-size:33px;font-weight:800;letter-spacing:2px;color:var(--teal-dark)}
+.hero-desc{font-size:15px;color:var(--ink-soft);margin-top:6px}
+.hero-stats{display:flex;gap:26px;margin-top:18px}
+.hero-stats .stat{text-align:center}
+.hero-stats .stat-num{font-size:28px;font-weight:800;color:var(--blue)}
+.hero-stats .stat-name{font-size:12px;color:var(--ink-faint)}
+.progress-box{min-width:280px;flex:1;max-width:380px;position:relative;z-index:1}
+.progress-label{display:flex;justify-content:space-between;font-size:14px;color:var(--ink-soft);margin-bottom:8px}
+.progress-label b{color:var(--teal-dark)}
+.progress-track{height:14px;border-radius:8px;background:#E7EAE0;overflow:hidden}
+.progress-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,var(--teal),var(--cyan));transition:width .5s}
+
+/* ============ 快捷入口 ============ */
+.quick-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:22px 0}
+.quick-card{
+  display:flex;align-items:center;gap:13px;text-align:left;
+  background:var(--card);border:1px solid var(--line);border-radius:15px;
+  padding:16px 18px;box-shadow:var(--shadow);transition:all .18s;
+}
+.quick-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--teal)}
+.quick-card .q-icon{
+  width:46px;height:46px;border-radius:12px;flex:none;
+  display:flex;align-items:center;justify-content:center;
+}
+.quick-card .q-icon svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.quick-card:nth-child(1) .q-icon{background:var(--teal-soft);color:var(--teal)}
+.quick-card:nth-child(2) .q-icon{background:var(--amber-soft);color:var(--amber)}
+.quick-card:nth-child(3) .q-icon{background:var(--red-soft);color:var(--red)}
+.quick-card:nth-child(4) .q-icon{background:var(--blue-soft);color:var(--blue)}
+.quick-card .q-text b{display:block;font-size:16px}
+.quick-card .q-text small{font-size:12px;color:var(--ink-faint)}
+/* ============ 工具栏：tabs / 筛选 / 搜索 ============ */
+.toolbar-row{margin:8px 0 20px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.tab{
+  padding:8px 18px;border-radius:20px;border:1px solid var(--line);
+  background:var(--card);font-size:14px;color:var(--ink-soft);transition:all .15s;
+}
+.tab:hover{border-color:var(--teal);color:var(--teal)}
+.tab.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.f-select{
+  padding:9px 14px;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);font-size:14px;color:var(--ink-soft);font-family:inherit;
+}
+.search-box{
+  display:flex;align-items:center;gap:8px;flex:1;min-width:220px;
+  padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);
+}
+.search-box svg{width:18px;height:18px;fill:none;stroke:var(--ink-faint);stroke-width:2}
+.search-box input{flex:1;border:none;outline:none;background:none;font-size:14px;font-family:inherit;color:var(--ink)}
+
+/* ============ 讲卡片网格 ============ */
+.lesson-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.lesson-card{
+  background:var(--card);border:1px solid var(--line);border-radius:15px;
+  padding:18px;box-shadow:var(--shadow);cursor:pointer;transition:all .18s;
+  display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;
+}
+.lesson-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--teal)}
+.lc-top{display:flex;align-items:center;gap:10px}
+.lc-num{
+  width:40px;height:40px;border-radius:11px;flex:none;
+  background:var(--teal-soft);color:var(--teal-dark);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;
+}
+.lesson-card.grade2 .lc-num{background:var(--blue-soft);color:var(--blue)}
+.lc-title{font-size:17px;font-weight:700;line-height:1.4}
+.lc-meta{display:flex;gap:8px;align-items:center}
+.lc-tag{font-size:12px;color:var(--teal);background:var(--teal-soft);padding:2px 10px;border-radius:10px}
+.lesson-card.grade2 .lc-tag{color:var(--blue);background:var(--blue-soft)}
+.lc-progress{height:7px;border-radius:5px;background:#E9ECE2;overflow:hidden;margin-top:2px}
+.lc-progress-fill{height:100%;background:var(--amber);border-radius:5px}
+.lc-marks{position:absolute;top:12px;right:12px;display:flex;gap:5px}
+.mark{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.mark svg{width:13px;height:13px;fill:none;stroke:#fff;stroke-width:3}
+.mark.done{background:var(--green)}
+.mark.fav{background:var(--amber)}
+.mark.master{background:var(--blue)}
+.empty{
+  grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-faint);
+  background:var(--card);border:1px dashed var(--line);border-radius:15px;
+}
+.empty svg{width:46px;height:46px;fill:none;stroke:var(--ink-faint);stroke-width:1.5;margin:0 auto 12px;display:block}
+
+/* ============ 通用页面标题 / 返回 ============ */
+.back-link{
+  display:inline-flex;align-items:center;gap:6px;color:var(--teal);
+  font-size:15px;margin-bottom:14px;padding:6px 12px;border-radius:9px;
+}
+.back-link:hover{background:var(--teal-soft)}
+.back-link svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.page-title{font-size:27px;font-weight:800;color:var(--teal-dark);letter-spacing:1px}
+.page-desc{font-size:14px;color:var(--ink-faint);margin:6px 0 20px}
+
+/* ============ 讲详情 ============ */
+.detail-head{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:22px 26px;box-shadow:var(--shadow);margin-bottom:18px;
+  display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;
+}
+.detail-head.grade2 .dh-badge{background:var(--blue)}
+.dh-badge{
+  display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:#fff;
+  font-size:13px;padding:5px 14px;border-radius:14px;margin-bottom:10px;
+}
+.dh-title{font-size:26px;font-weight:800;color:var(--ink)}
+.dh-actions{display:flex;gap:10px;flex-wrap:wrap}
+.dh-btn{
+  display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:11px;
+  border:1px solid var(--line);background:var(--card);font-size:14px;color:var(--ink-soft);
+}
+.dh-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2}
+.dh-btn.on-fav{background:var(--amber-soft);color:#B97A1F;border-color:var(--amber)}
+.dh-btn.on-master{background:var(--blue-soft);color:var(--blue);border-color:var(--blue)}
+
+.section-card{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:22px 26px;box-shadow:var(--shadow);margin-bottom:18px;
+}
+.section-card > h3{
+  font-size:19px;font-weight:800;color:var(--teal-dark);margin-bottom:14px;
+  display:flex;align-items:center;gap:9px;
+}
+.section-card > h3 .sec-no{
+  width:27px;height:27px;border-radius:8px;background:var(--teal);color:#fff;
+  display:inline-flex;align-items:center;justify-content:center;font-size:15px;
+}
+.point-list{list-style:none;display:flex;flex-direction:column;gap:11px}
+.point-list li{
+  position:relative;padding-left:30px;font-size:15.5px;color:var(--ink);line-height:1.7;
+}
+.point-list li::before{
+  content:attr(data-n);position:absolute;left:0;top:1px;
+  width:21px;height:21px;border-radius:50%;background:var(--teal-soft);color:var(--teal-dark);
+  font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:700;
+}
+
+/* 例题 */
+.example-block{
+  border:1px solid var(--line);border-radius:13px;padding:18px 20px;margin-bottom:16px;
+  background:linear-gradient(180deg,#FBFDFC,#F7FAF8);
+}
+.example-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ex-lead{
+  background:var(--amber);color:#fff;font-weight:700;font-size:14px;
+  padding:3px 13px;border-radius:11px;
+}
+.ex-q{font-size:16px;line-height:1.8}
+.steps-box{margin-top:12px}
+.step-item{
+  display:flex;gap:11px;margin-top:10px;font-size:15px;line-height:1.75;
+  background:var(--teal-soft);border-radius:10px;padding:11px 15px;
+}
+.step-no{
+  flex:none;width:23px;height:23px;border-radius:50%;background:var(--teal);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;margin-top:1px;
+}
+.step-answer{
+  margin-top:11px;background:var(--green-soft);color:var(--green);font-weight:700;
+  border-radius:10px;padding:11px 15px;font-size:15.5px;
+}
+.btn-step{
+  margin-top:12px;padding:9px 20px;border-radius:10px;background:var(--teal);color:#fff;font-size:14px;
+}
+.btn-step.ghost{background:var(--card);color:var(--teal);border:1px solid var(--teal)}
+.variants-label{
+  margin:14px 0 4px;font-size:13px;color:var(--ink-faint);letter-spacing:1px;
+}
+/* ============ 作答题卡 ============ */
+.q-card{
+  border:1px solid var(--line);border-radius:13px;padding:16px 18px;margin-bottom:14px;
+  background:var(--card);
+}
+.q-head{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+.q-index{
+  width:25px;height:25px;border-radius:8px;background:var(--blue-soft);color:var(--blue);
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:none;
+}
+.q-section{font-size:12px;color:var(--ink-faint)}
+.q-body{font-size:15.5px;line-height:1.8}
+.answer-area{margin-top:13px}
+.choice-list{display:flex;flex-direction:column;gap:9px}
+.choice-opt{
+  display:flex;align-items:center;gap:11px;text-align:left;width:100%;
+  border:1.5px solid var(--line);border-radius:11px;padding:11px 15px;font-size:15px;
+  background:#fff;transition:all .13s;
+}
+.choice-opt:hover{border-color:var(--teal);background:var(--teal-soft)}
+.choice-opt .opt-key{
+  width:26px;height:26px;border-radius:8px;flex:none;background:#EEF1EA;color:var(--ink-soft);
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;
+}
+.choice-opt.selected{border-color:var(--teal);background:var(--teal-soft)}
+.choice-opt.selected .opt-key{background:var(--teal);color:#fff}
+.choice-opt.correct{border-color:var(--green);background:var(--green-soft)}
+.choice-opt.correct .opt-key{background:var(--green);color:#fff}
+.choice-opt.wrong{border-color:var(--red);background:var(--red-soft)}
+.choice-opt.wrong .opt-key{background:var(--red);color:#fff}
+.choice-opt:disabled{cursor:default}
+.judge-row{display:flex;gap:12px}
+.judge-btn{
+  flex:1;border:1.5px solid var(--line);border-radius:11px;padding:12px;font-size:16px;
+  background:#fff;display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.judge-btn:hover{border-color:var(--teal)}
+.judge-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2}
+.judge-btn.correct{border-color:var(--green);background:var(--green-soft);color:var(--green)}
+.judge-btn.wrong{border-color:var(--red);background:var(--red-soft);color:var(--red)}
+.fill-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.fill-input{
+  min-width:120px;flex:1;max-width:240px;padding:11px 15px;border-radius:11px;
+  border:1.5px solid var(--line);font-size:17px;font-family:inherit;color:var(--ink);outline:none;
+  background:#fff;
+}
+.fill-input:focus{border-color:var(--teal)}
+.fill-unit{font-size:15px;color:var(--ink-soft)}
+.btn-submit{padding:11px 24px;border-radius:11px;background:var(--blue);color:#fff;font-size:15px}
+.q-result{margin-top:13px;border-radius:11px;padding:13px 16px;font-size:14.5px;line-height:1.75}
+.q-result.ok{background:var(--green-soft);color:#2F7A47;border:1px solid #BFE0CA}
+.q-result.no{background:var(--red-soft);color:#B24A36;border:1px solid #EFC7BC}
+.q-result .qr-title{font-weight:800;display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.q-result .qr-title svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.2}
+.q-result .qr-analysis{color:var(--ink-soft);margin-top:6px}
+.q-result .qr-answer{color:var(--red);font-weight:700}
+.q-actions{display:flex;gap:10px;margin-top:11px}
+.q-mini-btn{
+  padding:7px 16px;border-radius:9px;border:1px solid var(--line);
+  font-size:13.5px;color:var(--ink-soft);background:#fff;
+}
+.q-mini-btn:hover{border-color:var(--teal);color:var(--teal)}
+
+/* 完成本讲 */
+.finish-lesson{
+  text-align:center;padding:24px;
+}
+.btn-finish{
+  padding:14px 44px;border-radius:14px;background:linear-gradient(90deg,var(--teal),var(--cyan));
+  color:#fff;font-size:17px;font-weight:700;box-shadow:var(--shadow-lg);
+}
+.btn-finish.done{background:var(--green-soft);color:var(--green);box-shadow:none}
+
+/* 每日一练 banner */
+.daily-banner{
+  background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;
+  border-radius:16px;padding:22px 28px;margin-bottom:18px;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.daily-banner b{font-size:21px;display:block}
+.daily-banner small{opacity:.9}
+.daily-progress{font-size:15px;background:rgba(255,255,255,.18);padding:8px 18px;border-radius:20px}
+
+/* ============ 错题本 ============ */
+.err-tabs{display:flex;gap:10px;margin-bottom:16px}
+.err-item .q-card{border-color:#EFC7BC}
+.err-remove{color:var(--red)}
+
+/* ============ 打卡统计 ============ */
+.stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.stat-card{
+  background:var(--card);border:1px solid var(--line);border-radius:15px;
+  padding:22px 16px;text-align:center;box-shadow:var(--shadow);
+}
+.stat-card .sc-num{font-size:32px;font-weight:800}
+.stat-card .sc-name{font-size:13px;color:var(--ink-faint);margin-top:4px}
+.stat-card.sc1 .sc-num{color:var(--teal)}
+.stat-card.sc2 .sc-num{color:var(--blue)}
+.stat-card.sc3 .sc-num{color:var(--amber)}
+.stat-card.sc4 .sc-num{color:var(--green)}
+.chart-card{
+  background:var(--card);border:1px solid var(--line);border-radius:15px;
+  padding:20px 24px;box-shadow:var(--shadow);margin-bottom:18px;
+}
+.chart-card h3{font-size:17px;color:var(--teal-dark);margin-bottom:16px}
+.heatmap{display:grid;grid-template-columns:repeat(50,1fr);gap:4px}
+.heat-cell{aspect-ratio:1;border-radius:3px;background:#E7EAE0;min-width:0}
+.heat-cell.l1{background:var(--cyan)}
+.heat-cell.l2{background:var(--teal)}
+.heat-cell.l3{background:var(--teal-dark)}
+.heat-cell.today{outline:2px solid var(--amber);outline-offset:1px}
+.heat-legend{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--ink-faint);margin-top:12px}
+.heat-legend .heat-cell{width:14px;height:14px;aspect-ratio:auto}
+.week-bars{display:flex;align-items:flex-end;justify-content:space-around;gap:10px;height:170px}
+.week-bar{display:flex;flex-direction:column;align-items:center;gap:6px;flex:1;height:100%;justify-content:flex-end}
+.wb-fill{width:60%;max-width:42px;background:linear-gradient(180deg,var(--cyan),var(--teal));border-radius:7px 7px 0 0;min-height:3px}
+.wb-val{font-size:13px;color:var(--ink-soft);font-weight:700}
+.wb-name{font-size:13px;color:var(--ink-faint)}
+.today-tip{
+  background:var(--amber-soft);color:#8A5E1C;border-radius:13px;padding:15px 20px;font-size:15px;
+}
+
+/* ============ 大字模式 ============ */
+body.big-mode{font-size:19px}
+body.big-mode .hero-title{font-size:40px}
+body.big-mode .dh-title{font-size:33px}
+body.big-mode .q-body,body.big-mode .ex-q,body.big-mode .point-list li{font-size:19px}
+body.big-mode .q-card,body.big-mode .example-block{padding:22px}
+body.big-mode .fill-input{font-size:21px;min-width:160px}
+body.big-mode .lc-title{font-size:20px}
+
+/* ============ 响应式 ============ */
+@media (max-width:900px){
+  .quick-row{grid-template-columns:repeat(2,1fr)}
+  .stat-cards{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:600px){
+  .wrap{padding:16px 13px 60px}
+  .hero{padding:22px 20px}
+  .hero-title{font-size:27px}
+  .progress-box{min-width:100%}
+  .quick-row{grid-template-columns:1fr 1fr;gap:11px}
+  .quick-card{padding:13px;gap:10px}
+  .quick-card .q-icon{width:40px;height:40px}
+  .section-card{padding:18px 16px}
+  .detail-head{padding:18px}
+  .dh-title{font-size:22px}
+  .heatmap{gap:2px}
+  .brand-sub{display:none}
+  .icon-btn{padding:8px 10px;font-size:13px}
+  .stat-cards{grid-template-columns:repeat(2,1fr);gap:11px}
+  .week-bars{gap:4px}
+  .search-box input,.fill-input{font-size:16px}
+  .tab{min-height:40px}
+  .icon-btn{min-height:40px}
+}
+</style>
+</head>
+<body>
+<!-- ============ 顶栏 ============ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand" onclick="location.hash='#/home'">
+      <div class="brand-seal">数</div>
+      <div>
+        <div class="brand-name">小学奥数</div>
+        <div class="brand-sub">举 一 反 三 · 启 迪 思 维</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" id="btn-bigfont" type="button" title="大字模式">
+        <svg viewBox="0 0 24 24"><path d="M4 7V5h13v2"/><path d="M9 5v14"/><path d="M7 19h4"/></svg>大字
+      </button>
+      <button class="icon-btn" onclick="location.hash='#/errors'">
+        <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        错题本<span class="badge" id="errors-badge">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="app"></main>
+
+<div id="toast"></div>
+
+<script>
+/* ==================== 数据装配 ==================== */
+function arr(v){ return (typeof v!=="undefined" && v instanceof Array)?v:[]; }
+var LESSONS = [].concat(
+  arr(typeof L_SEED!=="undefined"?L_SEED:null),
+  arr(typeof L_G1A!=="undefined"?L_G1A:null),
+  arr(typeof L_G1B!=="undefined"?L_G1B:null),
+  arr(typeof L_G1C!=="undefined"?L_G1C:null),
+  arr(typeof L_G1D!=="undefined"?L_G1D:null),
+  arr(typeof L_G2A!=="undefined"?L_G2A:null),
+  arr(typeof L_G2B!=="undefined"?L_G2B:null),
+  arr(typeof L_G2C!=="undefined"?L_G2C:null),
+  arr(typeof L_G2D!=="undefined"?L_G2D:null),
+  arr(typeof L_G2E!=="undefined"?L_G2E:null)
+).sort(function(a,b){ return (a.grade-b.grade) || (a.idx-b.idx); });
+
+/* 题目注册：生成稳定题号，建立 QMAP */
+var QMAP={};
+function regQ(qid,q,lessonId,section){
+  q._qid=qid;
+  QMAP[qid]={q:q,lessonId:lessonId,section:section};
+}
+LESSONS.forEach(function(L){
+  L.examples.forEach(function(e,ei){
+    e.variants.forEach(function(v,vi){ regQ(L.id+"-v"+ei+"_"+vi,v,L.id,"举一反三"); });
+  });
+  L.practice.forEach(function(q,i){ regQ(L.id+"-p"+i,q,L.id,"练习"); });
+  L.quiz.forEach(function(q,i){ regQ(L.id+"-z"+i,q,L.id,"小测"); });
+});
+function lessonById(id){
+  for(var i=0;i<LESSONS.length;i++){ if(LESSONS[i].id===id)return LESSONS[i]; }
+  return null;
+}
+
+/* ==================== 状态与本地存储 ==================== */
+var STORE_KEY="aoshu-app-v1";
+var state={ learned:{}, fav:{}, mastered:{}, done:{}, errors:{},
+  bigFont:false, grade:"all", tag:"all", status:"all", search:"", daily:{} };
+function saveState(){ try{ localStorage.setItem(STORE_KEY,JSON.stringify(state)); }catch(e){} }
+function loadState(){
+  try{
+    var s=localStorage.getItem(STORE_KEY);
+    if(!s)return;
+    var o=JSON.parse(s);
+    state.learned=o.learned||{}; state.fav=o.fav||{}; state.mastered=o.mastered||{};
+    state.done=o.done||{}; state.errors=o.errors||{};
+    state.bigFont=!!o.bigFont; state.grade=o.grade||"all";
+    state.tag=o.tag||"all"; state.status=o.status||"all";
+    state.search=o.search||""; state.daily=o.daily||{};
+  }catch(e){}
+}
+loadState();
+
+/* ==================== Toast ==================== */
+var toastTimer=null;
+function toast(msg){
+  var t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){ t.classList.remove("show"); },1900);
+}
+
+/* ==================== 日期与打卡 ==================== */
+function pad2(n){ return (n<10?"0":"")+n; }
+function dateKey(d){ return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate()); }
+function todayKey(){ return dateKey(new Date()); }
+function addDays(base,n){ var d=new Date(base); d.setDate(d.getDate()+n); return d; }
+function recordDaily(type,n){
+  var k=todayKey();
+  if(!state.daily[k])state.daily[k]={learn:0,answer:0};
+  state.daily[k][type]=(state.daily[k][type]||0)+(n||1);
+  saveState();
+}
+function dayTotal(k){ var d=state.daily[k]; return d?(d.learn||0)+(d.answer||0):0; }
+function dayActive(k){ return dayTotal(k)>0; }
+function streakDays(){
+  var d=new Date();
+  if(!dayActive(dateKey(d)))d=addDays(d,-1);
+  var n=0;
+  while(dayActive(dateKey(d))){ n++; d=addDays(d,-1); }
+  return n;
+}
+function totalAnswers(){
+  var n=0;
+  Object.keys(state.daily).forEach(function(k){ n+=state.daily[k].answer||0; });
+  return n;
+}
+
+/* ==================== 全局钩子（供 games.js 调用） ==================== */
+window.AppHooks={
+  answer:function(){ recordDaily("answer",1); }
+};
+
+/* ==================== 错题本 ==================== */
+function snapshotError(qid,q,lessonId,section){
+  var existing=state.errors[qid];
+  state.errors[qid]={
+    qid:qid, html:q.html, type:q.type,
+    options:q.options?q.options.slice():null, unit:q.unit||null,
+    answer:q.answer, analysis:q.analysis,
+    lessonId:lessonId, section:section,
+    wrong:(existing&&existing.wrong?existing.wrong:0)+1,
+    resolved:false, ts:Date.now()
+  };
+  saveState(); updateBadges();
+}
+function resolveError(qid){
+  if(state.errors[qid]){ state.errors[qid].resolved=true; saveState(); updateBadges(); }
+}
+function unresolvedErrorCount(){
+  var n=0;
+  Object.keys(state.errors).forEach(function(k){ if(!state.errors[k].resolved)n++; });
+  return n;
+}
+function updateBadges(){
+  var b=document.getElementById("errors-badge");
+  if(b)b.textContent=unresolvedErrorCount();
+}
+
+/* 讲内已答题数（用于卡片进度） */
+function lessonDoneCount(L){
+  var n=0;
+  Object.keys(state.done).forEach(function(k){
+    if(k.indexOf(L.id+"-")===0 && state.done[k])n++;
+  });
+  return n;
+}
+function lessonQuestionCount(L){
+  var n=0;
+  L.examples.forEach(function(e){ n+=e.variants.length; });
+  n+=L.practice.length; n+=L.quiz.length;
+  if(L.gen)n+=L.gen.n||0;
+  return n;
+}
+/* ==================== 批改引擎 ==================== */
+var CN_DIGIT={零:0,一:1,二:2,两:2,三:3,四:4,五:5,六:6,七:7,八:8,九:9};
+function cnToNum(s){
+  if(Object.prototype.hasOwnProperty.call(CN_DIGIT,s))return CN_DIGIT[s];
+  var m;
+  if(m=s.match(/^([一二三四五六七八九])?十([一二三四五六七八九])?$/)){
+    return (m[1]?CN_DIGIT[m[1]]:1)*10+(m[2]?CN_DIGIT[m[2]]:0);
+  }
+  if(m=s.match(/^([一二三四五六七八九])百(.*)$/)){
+    var h=CN_DIGIT[m[1]]*100, rest=m[2]||"";
+    if(!rest)return h;
+    if(rest.charAt(0)==="零"){ var d=rest.charAt(1); return h+(d?CN_DIGIT[d]:0); }
+    var tm=rest.match(/^([一二三四五六七八九])?十([一二三四五六七八九])?$/);
+    if(tm)return h+(tm[1]?CN_DIGIT[tm[1]]:1)*10+(tm[2]?CN_DIGIT[tm[2]]:0);
+  }
+  return null;
+}
+function halfWidth(s){
+  return String(s).replace(/[０-９．]/g,function(c){
+    if(c==="．")return ".";
+    return String.fromCharCode(c.charCodeAt(0)-0xFEE0);
+  });
+}
+function toNumber(raw){
+  var s=halfWidth(raw).replace(/\s/g,"");
+  if(/^-?\d+(\.\d+)?$/.test(s))return parseFloat(s);
+  var cn=cnToNum(s);
+  if(cn!==null)return cn;
+  var m=s.match(/-?\d+(\.\d+)?/);
+  return m?parseFloat(m[0]):NaN;
+}
+function normText(s){ return halfWidth(s).replace(/[\s，,。、.；;：:（）()]/g,""); }
+function gradeFill(q,raw){
+  var accepts=q.answer instanceof Array?q.answer:[q.answer];
+  for(var i=0;i<accepts.length;i++){
+    var a=accepts[i];
+    var v=toNumber(raw), an=toNumber(a);
+    if(!isNaN(v)&&!isNaN(an)&&Math.abs(v-an)<1e-9)return true;
+    if(typeof a!=="number" && normText(raw)===normText(a))return true;
+  }
+  return false;
+}
+function answerText(q){
+  if(q.type==="choice")return String.fromCharCode(65+q.answer)+"．"+q.options[q.answer];
+  if(q.type==="judge")return q.answer?"√（正确）":"×（错误）";
+  var a=q.answer instanceof Array?q.answer[0]:q.answer;
+  return String(a)+(q.unit?(" "+q.unit):"");
+}
+
+/* ==================== 作答题卡组件 ==================== */
+function mountQuestion(parent,q,qid,meta){
+  var card=document.createElement("div");
+  card.className="q-card";
+  card.innerHTML=
+    '<div class="q-head"><span class="q-index">'+(meta.index!=null?meta.index:"")+'</span>'
+    +'<span class="q-section">'+meta.section+'</span></div>'
+    +'<div class="q-body">'+q.html+'</div>'
+    +'<div class="answer-area"></div><div class="q-result-slot"></div>';
+  parent.appendChild(card);
+  var area=card.querySelector(".answer-area");
+  var slot=card.querySelector(".q-result-slot");
+  var locked=false;
+
+  function showResult(correct){
+    var icon=correct
+      ?'<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>'
+      :'<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    slot.innerHTML='<div class="q-result '+(correct?"ok":"no")+'">'
+      +'<div class="qr-title">'+icon+(correct?"回答正确":"再想一想")+'</div>'
+      +(correct?"":'<div>正确答案：<span class="qr-answer">'+answerText(q)+'</span></div>')
+      +'<div class="qr-analysis"><b>解析：</b>'+q.analysis+'</div></div>'
+      +'<div class="q-actions"><button class="q-mini-btn" type="button" data-act="retry">再做一次</button></div>';
+    slot.querySelector('[data-act=retry]').addEventListener("click",function(){
+      slot.innerHTML=""; locked=false; buildArea();
+    });
+  }
+  function finish(correct){
+    locked=true;
+    try{ window.AppHooks.answer(); }catch(e){}
+    state.done[qid]=correct; saveState();
+    if(correct)resolveError(qid);
+    else snapshotError(qid,q,meta.lessonId,meta.section);
+    showResult(correct);
+  }
+  function buildArea(){
+    area.innerHTML="";
+    if(q.type==="choice"){
+      var box=document.createElement("div"); box.className="choice-list";
+      q.options.forEach(function(op,oi){
+        var b=document.createElement("button"); b.type="button"; b.className="choice-opt";
+        b.innerHTML='<span class="opt-key">'+String.fromCharCode(65+oi)+'</span><span>'+op+'</span>';
+        b.addEventListener("click",function(){
+          if(locked)return;
+          var correct=(oi===q.answer);
+          box.querySelectorAll(".choice-opt").forEach(function(x,xi){
+            x.disabled=true;
+            if(xi===q.answer)x.classList.add("correct");
+            else if(xi===oi)x.classList.add("wrong");
+          });
+          finish(correct);
+        });
+        box.appendChild(b);
+      });
+      area.appendChild(box);
+    } else if(q.type==="judge"){
+      var row=document.createElement("div"); row.className="judge-row";
+      [[0,"√ 正确",true],[1,"× 错误",false]].forEach(function(d){
+        var b=document.createElement("button"); b.type="button"; b.className="judge-btn";
+        b.textContent=d[1];
+        b.addEventListener("click",function(){
+          if(locked)return;
+          var correct=(d[2]===q.answer);
+          row.querySelectorAll(".judge-btn").forEach(function(x){x.disabled=true;});
+          b.classList.add(correct?"correct":"wrong");
+          if(!correct)row.querySelectorAll(".judge-btn")[q.answer?0:1].classList.add("correct");
+          finish(correct);
+        });
+        row.appendChild(b);
+      });
+      area.appendChild(row);
+    } else {
+      var fr=document.createElement("div"); fr.className="fill-row";
+      var inp=document.createElement("input");
+      inp.type="text"; inp.className="fill-input"; inp.setAttribute("inputmode","numeric");
+      inp.placeholder="输入答案";
+      fr.appendChild(inp);
+      if(q.unit){ var u=document.createElement("span"); u.className="fill-unit"; u.textContent=q.unit; fr.appendChild(u); }
+      var sb=document.createElement("button"); sb.type="button"; sb.className="btn-submit"; sb.textContent="提交";
+      fr.appendChild(sb); area.appendChild(fr);
+      function submitFill(){
+        if(locked)return;
+        if(inp.value.trim()===""){ inp.focus(); return; }
+        var correct=gradeFill(q,inp.value);
+        inp.disabled=true; sb.disabled=true;
+        finish(correct);
+      }
+      sb.addEventListener("click",submitFill);
+      inp.addEventListener("keydown",function(e){ if(e.key==="Enter")submitFill; });
+      setTimeout(function(){ try{inp.focus();}catch(e){} },40);
+    }
+  }
+  buildArea();
+  return card;
+}
+/* ==================== 视图：首页 ==================== */
+function lessonSearchText(L){
+  var t=L.title+" "+L.tag+" "+(L.goal||"")+" "+L.points.join("");
+  L.examples.forEach(function(e){ t+=" "+e.html+" "+e.steps.join("")+" "+e.answer; });
+  L.practice.forEach(function(x){ t+=" "+x.html+" "+x.analysis; });
+  L.quiz.forEach(function(x){ t+=" "+x.html+" "+x.analysis; });
+  return t;
+}
+function homeLessons(){
+  var q=state.search.trim();
+  return LESSONS.filter(function(L){
+    if(state.grade!=="all"&&String(L.grade)!==state.grade)return false;
+    if(state.tag!=="all"&&L.tag!==state.tag)return false;
+    if(state.status==="learned"&&!state.learned[L.id])return false;
+    if(state.status==="unlearned"&&state.learned[L.id])return false;
+    if(state.status==="fav"&&!state.fav[L.id])return false;
+    if(state.status==="mastered"&&!state.mastered[L.id])return false;
+    if(q&&lessonSearchText(L).indexOf(q)<0)return false;
+    return true;
+  });
+}
+function checkSvg(path){
+  return '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>';
+}
+function lessonCardHtml(L){
+  var marks="";
+  if(state.learned[L.id])marks+='<span class="mark done">'+checkSvg()+'</span>';
+  if(state.fav[L.id])marks+='<span class="mark fav"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 1 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></span>';
+  if(state.mastered[L.id])marks+='<span class="mark master"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.8 5.5 21l2-7.5L2 9h7z"/></svg></span>';
+  var total=lessonQuestionCount(L), dn=lessonDoneCount(L);
+  var pct=total?Math.round(dn/total*100):0;
+  return '<div class="lesson-card grade'+L.grade+'" data-id="'+L.id+'">'
+    +'<div class="lc-marks">'+marks+'</div>'
+    +'<div class="lc-top"><div class="lc-num">'+L.idx+'</div><div class="lc-title">'+L.title+'</div></div>'
+    +'<div class="lc-meta"><span class="lc-tag">'+L.tag+'</span></div>'
+    +'<div class="lc-progress"><div class="lc-progress-fill" style="width:'+pct+'%"></div></div></div>';
+}
+function gridHtml(list){
+  if(!list.length){
+    return '<div class="empty"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><p>没有符合条件的讲，换个筛选条件试试吧</p></div>';
+  }
+  return list.map(lessonCardHtml).join("");
+}
+var TAGS=["数与计算","图形几何","规律推理","典型应用","生活数学","数学游戏","综合"];
+function renderHome(){
+  var total=LESSONS.length;
+  var learnedCount=LESSONS.filter(function(L){return state.learned[L.id];}).length;
+  var streak=streakDays(), answers=totalAnswers();
+  var pct=total?Math.round(learnedCount/total*100):0;
+
+  var gradeDefs=[["all","全部"],["1","一年级"],["2","二年级"]];
+  var gradeTabs=gradeDefs.map(function(g){
+    return '<button class="tab'+(state.grade===g[0]?" active":"")+'" data-grade="'+g[0]+'" type="button">'+g[1]+'</button>';
+  }).join("");
+  var statusDefs=[["all","全部"],["unlearned","未学"],["learned","已学"],["fav","收藏"],["mastered","已掌握"]];
+  var statusOpts='<option value="all">全部状态</option>'+statusDefs.slice(1).map(function(s){
+    return '<option value="'+s[0]+'"'+(state.status===s[0]?" selected":"")+'>'+s[1]+'</option>';
+  }).join("");
+  var tagOpts='<option value="all">全部专题</option>'+TAGS.map(function(t){
+    return '<option value="'+t+'"'+(state.tag===t?" selected":"")+'>'+t+'</option>';
+  }).join("");
+
+  document.getElementById("app").innerHTML=
+    '<section class="hero"><div>'
+    +'<div class="hero-title">小学奥数 · 举一反三</div>'
+    +'<div class="hero-desc">45 讲思维训练 · 例题分步讲透 · 会一道就能会一类</div>'
+    +'<div class="hero-stats">'
+    +'<div class="stat"><div class="stat-num">'+learnedCount+'</div><div class="stat-name">已学讲数</div></div>'
+    +'<div class="stat"><div class="stat-num">'+answers+'</div><div class="stat-name">累计答题</div></div>'
+    +'<div class="stat"><div class="stat-num">'+streak+'</div><div class="stat-name">连续打卡</div></div>'
+    +'</div></div>'
+    +'<div class="progress-box"><div class="progress-label"><span>学习进度</span><b>'+learnedCount+' / '+total+' 讲</b></div>'
+    +'<div class="progress-track"><div class="progress-fill" style="width:'+pct+'%"></div></div></div></section>'
+    +'<div class="quick-row">'
+    +'<button class="quick-card" id="quick-daily" type="button"><span class="q-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span class="q-text"><b>每日一练</b><small>每天 10 道</small></span></button>'
+    +'<button class="quick-card" id="quick-game" type="button"><span class="q-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="5"/><line x1="7" y1="12" x2="11" y2="12"/><circle cx="16" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="18.4" cy="14" r="1" fill="currentColor" stroke="none"/></svg></span><span class="q-text"><b>趣味小游戏</b><small>24点 · 数独 · 火柴棒</small></span></button>'
+    +'<button class="quick-card" id="quick-errors" type="button"><span class="q-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="q-text"><b>错题本</b><small>'+unresolvedErrorCount()+' 道待攻克</small></span></button>'
+    +'<button class="quick-card" id="quick-stats" type="button"><span class="q-icon"><svg viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="20"/><rect x="6" y="12" width="3" height="6"/><rect x="11" y="7" width="3" height="11"/><rect x="16" y="4" width="3" height="14"/></svg></span><span class="q-text"><b>学习打卡</b><small>已连续 '+streak+' 天</small></span></button>'
+    +'</div>'
+    +'<div class="toolbar-row"><div class="tabs">'+gradeTabs+'</div>'
+    +'<div class="filters">'
+    +'<select class="f-select" id="sel-status" aria-label="按状态筛选">'+statusOpts+'</select>'
+    +'<select class="f-select" id="sel-tag" aria-label="按专题筛选">'+tagOpts+'</select>'
+    +'<div class="search-box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>'
+    +'<input id="search-input" type="text" placeholder="搜索讲名、知识点或题目" value="'+state.search.replace(/"/g,"&quot;")+'"></div>'
+    +'</div></div>'
+    +'<div class="lesson-grid">'+gridHtml(homeLessons())+'</div>';
+
+  function refreshGrid(){
+    var g=document.querySelector(".lesson-grid");
+    g.outerHTML='<div class="lesson-grid">'+gridHtml(homeLessons())+'</div>';
+    bindCards(document.querySelector(".lesson-grid"));
+  }
+  function bindCards(root){
+    root.querySelectorAll(".lesson-card").forEach(function(c){
+      c.addEventListener("click",function(){ location.hash="#/lesson/"+c.getAttribute("data-id"); });
+    });
+  }
+  bindCards(document.querySelector(".lesson-grid"));
+  document.querySelectorAll(".tab").forEach(function(t){
+    t.addEventListener("click",function(){
+      state.grade=t.getAttribute("data-grade"); saveState();
+      document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("active");});
+      t.classList.add("active"); refreshGrid();
+    });
+  });
+  document.getElementById("sel-status").addEventListener("change",function(){
+    state.status=this.value; saveState(); refreshGrid();
+  });
+  document.getElementById("sel-tag").addEventListener("change",function(){
+    state.tag=this.value; saveState(); refreshGrid();
+  });
+  var si=document.getElementById("search-input");
+  si.addEventListener("input",function(){
+    state.search=si.value; saveState(); refreshGrid();
+    var nv=document.getElementById("search-input");
+    nv.focus(); nv.setSelectionRange(nv.value.length,nv.value.length);
+  });
+  document.getElementById("quick-daily").addEventListener("click",function(){location.hash="#/daily";});
+  document.getElementById("quick-game").addEventListener("click",function(){location.hash="#/games";});
+  document.getElementById("quick-errors").addEventListener("click",function(){location.hash="#/errors";});
+  document.getElementById("quick-stats").addEventListener("click",function(){location.hash="#/stats";});
+}
+/* ==================== 视图：讲详情 ==================== */
+function renderLesson(id){
+  var L=lessonById(id);
+  if(!L){ location.hash="#/home"; return; }
+
+  document.getElementById("app").innerHTML=
+    '<button class="back-link" id="btn-back" type="button"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>返回首页</button>'
+    +'<div class="detail-head grade'+L.grade+'">'
+    +'<div><div class="dh-badge">'+(L.grade===1?"一年级":"二年级")+" · "+L.tag+'</div>'
+    +'<div class="dh-title">第 '+L.idx+' 讲　'+L.title+'</div></div>'
+    +'<div class="dh-actions">'
+    +'<button class="dh-btn" id="btn-fav" type="button"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 1 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>收藏</button>'
+    +'<button class="dh-btn" id="btn-master" type="button"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18.5 21 12 16.8 5.5 21l2-7.5L2 9h7z"/></svg>标记掌握</button>'
+    +'</div></div>'
+    +'<div id="detail-body"></div>';
+
+  var body=document.getElementById("detail-body");
+
+  /* 知识要点 */
+  var goal=L.goal?('<div style="font-size:15px;color:var(--ink-soft);margin-bottom:12px"><b style="color:var(--teal-dark)">学习目标：</b>'+L.goal+'</div>'):"";
+  var pointsCard=document.createElement("div");
+  pointsCard.className="section-card";
+  pointsCard.innerHTML='<h3><span class="sec-no">1</span>知识要点</h3>'+goal
+    +'<ul class="point-list">'+L.points.map(function(p,i){
+      return '<li data-n="'+(i+1)+'">'+p+'</li>';
+    }).join("")+'</ul>';
+  body.appendChild(pointsCard);
+
+  /* 例题精讲 */
+  var exCard=document.createElement("div");
+  exCard.className="section-card";
+  exCard.innerHTML='<h3><span class="sec-no">2</span>例题精讲（点击按钮，一步步看懂）</h3>';
+  L.examples.forEach(function(e,ei){
+    var block=document.createElement("div");
+    block.className="example-block";
+    var head=document.createElement("div");
+    head.className="example-head";
+    head.innerHTML='<span class="ex-lead">'+(e.lead||("例"+(ei+1)))+'</span>';
+    block.appendChild(head);
+    var q=document.createElement("div");
+    q.className="ex-q"; q.innerHTML=e.html;
+    block.appendChild(q);
+
+    var stepsBox=document.createElement("div");
+    stepsBox.className="steps-box";
+    block.appendChild(stepsBox);
+    var shown=0;
+    var btn=document.createElement("button");
+    btn.type="button"; btn.className="btn-step"; btn.textContent="显示分步解析";
+    btn.addEventListener("click",function(){
+      if(shown<e.steps.length){
+        var d=document.createElement("div");
+        d.className="step-item";
+        d.innerHTML='<span class="step-no">'+(shown+1)+'</span><span>'+e.steps[shown]+'</span>';
+        stepsBox.appendChild(d); shown++;
+        btn.textContent=shown<e.steps.length?"下一步":"显示结论";
+      } else {
+        var a=document.createElement("div");
+        a.className="step-answer"; a.textContent=e.answer;
+        stepsBox.appendChild(a);
+        btn.classList.add("hidden");
+      }
+    });
+    block.appendChild(btn);
+
+    /* 变式 */
+    var vl=document.createElement("div");
+    vl.className="variants-label"; vl.textContent="举一反三 · 变式";
+    block.appendChild(vl);
+    e.variants.forEach(function(vq,vi){
+      mountQuestion(block,vq,L.id+"-v"+ei+"_"+vi,{index:vi+1,section:"举一反三",lessonId:L.id});
+    });
+    exCard.appendChild(block);
+  });
+  body.appendChild(exCard);
+
+  /* 练习（含生成器） */
+  var prCard=document.createElement("div");
+  prCard.className="section-card";
+  prCard.innerHTML='<h3><span class="sec-no">3</span>举一反三 · 练习</h3>';
+  var prHolder=document.createElement("div");
+  var practiceList=L.practice.slice();
+  if(L.gen&&typeof Gen!=="undefined"&&Gen.get){
+    try{ Gen.get(L.gen.type,L.gen.n).forEach(function(g){ practiceList.push(g); }); }catch(e){}
+  }
+  practiceList.forEach(function(pq,i){
+    var qid=pq._qid||(L.id+"-g"+i);
+    mountQuestion(prHolder,pq,qid,{index:i+1,section:"练习",lessonId:L.id});
+  });
+  prCard.appendChild(prHolder);
+  body.appendChild(prCard);
+
+  /* 小测 */
+  var qzCard=document.createElement("div");
+  qzCard.className="section-card";
+  qzCard.innerHTML='<h3><span class="sec-no">4</span>讲末小测</h3>';
+  var qzHolder=document.createElement("div");
+  L.quiz.forEach(function(qq,i){
+    mountQuestion(qzHolder,qq,qq._qid||(L.id+"-z"+i),{index:i+1,section:"小测",lessonId:L.id});
+  });
+  qzCard.appendChild(qzHolder);
+  body.appendChild(qzCard);
+
+  /* 完成本讲 */
+  var finCard=document.createElement("div");
+  finCard.className="section-card finish-lesson";
+  var isDone=!!state.learned[L.id];
+  finCard.innerHTML=isDone
+    ? '<button class="btn-finish done" type="button" id="btn-finish">本讲已完成，继续加油</button>'
+    : '<button class="btn-finish" type="button" id="btn-finish">完成本讲 · 打卡</button>';
+  body.appendChild(finCard);
+  document.getElementById("btn-finish").addEventListener("click",function(){
+    if(!state.learned[L.id]){
+      state.learned[L.id]=true; recordDaily("learn",1); saveState();
+      toast("已完成《"+L.title+"》，打卡成功");
+      var b=document.getElementById("btn-finish");
+      b.className="btn-finish done"; b.textContent="本讲已完成，继续加油";
+    } else { toast("本讲已经打卡过啦"); }
+  });
+
+  /* 收藏 / 掌握 */
+  function syncToggles(){
+    var f=document.getElementById("btn-fav"), m=document.getElementById("btn-master");
+    f.classList.toggle("on-fav",!!state.fav[L.id]);
+    f.querySelector("svg").outerHTML='<svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 1 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>';
+    f.lastChild.textContent=state.fav[L.id]?"已收藏":"收藏";
+    m.classList.toggle("on-master",!!state.mastered[L.id]);
+    m.lastChild.textContent=state.mastered[L.id]?"已掌握":"标记掌握";
+  }
+  document.getElementById("btn-fav").addEventListener("click",function(){
+    if(state.fav[L.id]){ delete state.fav[L.id]; toast("已取消收藏"); }
+    else { state.fav[L.id]=true; toast("已收藏本讲"); }
+    saveState(); syncToggles();
+  });
+  document.getElementById("btn-master").addEventListener("click",function(){
+    if(state.mastered[L.id]){ delete state.mastered[L.id]; toast("已取消掌握标记"); }
+    else { state.mastered[L.id]=true; toast("太棒了，已标记掌握"); }
+    saveState(); syncToggles();
+  });
+
+  document.getElementById("btn-back").addEventListener("click",function(){location.hash="#/home";});
+}
+/* ==================== 随机工具（每日一练稳定出题） ==================== */
+function seedFromStr(s){ var h=2166136261>>>0; for(var i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619)>>>0; } return h>>>0; }
+function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function shuffle(arr,r){ arr=arr.slice(); for(var i=arr.length-1;i>0;i--){ var j=Math.floor(r()*(i+1)); var t=arr[i]; arr[i]=arr[j]; arr[j]=t; } return arr; }
+
+/* ==================== 视图：每日一练 ==================== */
+function renderDaily(){
+  var tk=todayKey();
+  var r=mulberry32(seedFromStr("daily-"+tk));
+  var statics=shuffle(Object.keys(QMAP).map(function(k){ return {qid:k,info:QMAP[k]}; }),r);
+  var items=[];
+  for(var i=0;i<statics.length&&items.length<6;i++){
+    var s=statics[i];
+    items.push({q:s.info.q,qid:s.qid,section:s.info.section,lessonId:s.info.lessonId});
+  }
+  var gtypes=["decompose","oddEven","makeTen","roundCalc","multiply","division","period","timeCalc","unitConvert"];
+  if(typeof Gen!=="undefined"&&Gen.get){
+    var gs=shuffle(gtypes,r).slice(0,4);
+    gs.forEach(function(t,i){
+      try{
+        var got=Gen.get(t,1,r);
+        if(got&&got[0])items.push({q:got[0],qid:tk+"-g"+i,section:"思维拓展",lessonId:null});
+      }catch(e){}
+    });
+  }
+
+  document.getElementById("app").innerHTML=
+    '<button class="back-link" id="btn-back" type="button"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>返回首页</button>'
+    +'<div class="daily-banner"><div><b>每日一练 · '+tk+'</b><small>每天 10 道，坚持就是进步</small></div>'
+    +'<div class="daily-progress">共 '+items.length+' 题</div></div>'
+    +'<div id="daily-holder"></div>';
+  var holder=document.getElementById("daily-holder");
+  items.forEach(function(it,i){
+    mountQuestion(holder,it.q,it.qid,{index:i+1,section:it.section,lessonId:it.lessonId});
+  });
+  document.getElementById("btn-back").addEventListener("click",function(){location.hash="#/home";});
+}
+
+/* ==================== 视图：错题本 ==================== */
+function renderErrors(mode){
+  mode=mode||"open";
+  var keys=Object.keys(state.errors).filter(function(k){
+    return mode==="open"?!state.errors[k].resolved:!!state.errors[k].resolved;
+  }).sort(function(a,b){ return state.errors[b].ts-state.errors[a].ts; });
+
+  document.getElementById("app").innerHTML=
+    '<button class="back-link" id="btn-back" type="button"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>返回首页</button>'
+    +'<div class="page-title">错题本</div>'
+    +'<div class="page-desc">做错的题会自动收进来，做对后自动移到“已攻克”。</div>'
+    +'<div class="err-tabs">'
+    +'<button class="tab'+(mode==="open"?" active":"")+'" data-mode="open" type="button">未攻克（'+unresolvedErrorCount()+'）</button>'
+    +'<button class="tab'+(mode==="done"?" active":"")+'" data-mode="done" type="button">已攻克</button></div>'
+    +'<div id="err-list"></div>';
+
+  var list=document.getElementById("err-list");
+  if(!keys.length){
+    list.innerHTML='<div class="empty"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><p>'+(mode==="open"?"太棒了，暂时没有未攻克的错题":"还没有已攻克的错题")+'</p></div>';
+  }
+  keys.forEach(function(k){
+    var it=state.errors[k];
+    var lt=lessonById(it.lessonId);
+    var wrap=document.createElement("div");
+    wrap.className="err-item";
+    wrap.innerHTML='<div class="q-card">'
+      +'<div class="q-head"><span class="q-section">来源：'+(lt?lt.title:it.lessonId)+" · "+it.section+'　（错过 '+it.wrong+' 次）</span></div>'
+      +'<div class="q-body">'+it.html+'</div><div class="redo-slot"></div></div>';
+    var slot=wrap.querySelector(".redo-slot");
+    function showInfo(){
+      var qq={type:it.type,html:it.html,answer:it.answer,analysis:it.analysis};
+      if(it.options)qq.options=it.options;
+      if(it.unit)qq.unit=it.unit;
+      slot.innerHTML='<div class="q-result ok" style="background:var(--card);color:var(--ink-soft);border:1px solid var(--line)">'
+        +'<div>正确答案：<span class="qr-answer">'+answerText(qq)+'</span></div>'
+        +'<div class="qr-analysis"><b>解析：</b>'+it.analysis+'</div></div>'
+        +'<div class="q-actions">'
+        +'<button class="q-mini-btn" type="button" data-a="redo">再做一次</button>'
+        +'<button class="q-mini-btn err-remove" type="button" data-a="del">移除</button></div>';
+      slot.querySelector('[data-a=redo]').addEventListener("click",function(){
+        slot.innerHTML="";
+        mountQuestion(slot,qq,it.qid,{index:"",section:it.section,lessonId:it.lessonId});
+      });
+      slot.querySelector('[data-a=del]').addEventListener("click",function(){
+        delete state.errors[k]; saveState(); updateBadges();
+        wrap.innerHTML="";
+        toast("已移除该错题");
+      });
+    }
+    showInfo();
+    list.appendChild(wrap);
+  });
+
+  document.querySelectorAll(".err-tabs .tab").forEach(function(t){
+    t.addEventListener("click",function(){ renderErrors(t.getAttribute("data-mode")); });
+  });
+  document.getElementById("btn-back").addEventListener("click",function(){location.hash="#/home";});
+}
+
+/* ==================== 视图：学习打卡 ==================== */
+function renderStats(){
+  var learnedCount=LESSONS.filter(function(L){return state.learned[L.id];}).length;
+  var answers=totalAnswers();
+  var activeDays=Object.keys(state.daily).filter(function(k){return dayActive(k);}).length;
+  var streak=streakDays();
+
+  var cells="";
+  for(var i=49;i>=0;i--){
+    var d=addDays(new Date(),-i), k=dateKey(d), c=dayTotal(k);
+    var lv=c===0?"":(c===1?"l1":(c<=3?"l2":"l3"));
+    cells+='<div class="heat-cell '+lv+(i===0?" today":"")+'" title="'+k+"："+c+' 次"></div>';
+  }
+  var weekNames=["日","一","二","三","四","五","六"], vals=[];
+  for(var j=6;j>=0;j--){
+    var d2=addDays(new Date(),-j);
+    vals.push({name:weekNames[d2.getDay()],val:dayTotal(dateKey(d2))});
+  }
+  var maxV=Math.max(3,Math.max.apply(null,vals.map(function(v){return v.val;})));
+  var bars=vals.map(function(v){
+    return '<div class="week-bar"><span class="wb-val">'+(v.val||"")+'</span>'
+      +'<div class="wb-fill" style="height:'+Math.round(v.val/maxV*130)+'px"></div>'
+      +'<span class="wb-name">'+v.name+'</span></div>';
+  }).join("");
+  var tip=dayActive(todayKey())?"今天已经完成学习打卡啦，继续保持！":"今天还没有打卡，去学一讲、练一练或玩局小游戏吧。";
+
+  document.getElementById("app").innerHTML=
+    '<button class="back-link" id="btn-back" type="button"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>返回首页</button>'
+    +'<div class="page-title">学习打卡</div>'
+    +'<div class="page-desc">学讲、答题、玩游戏都会自动记录，坚持学习，养成好习惯。</div>'
+    +'<div class="stat-cards">'
+    +'<div class="stat-card sc1"><div class="sc-num">'+streak+'</div><div class="sc-name">连续打卡（天）</div></div>'
+    +'<div class="stat-card sc2"><div class="sc-num">'+learnedCount+'</div><div class="sc-name">已学讲数（讲）</div></div>'
+    +'<div class="stat-card sc3"><div class="sc-num">'+answers+'</div><div class="sc-name">累计答题（题）</div></div>'
+    +'<div class="stat-card sc4"><div class="sc-num">'+activeDays+'</div><div class="sc-name">累计打卡（天）</div></div></div>'
+    +'<div class="chart-card"><h3>近 50 天学习热力</h3><div class="heatmap">'+cells+'</div>'
+    +'<div class="heat-legend">少<span class="heat-cell"></span><span class="heat-cell l1"></span><span class="heat-cell l2"></span><span class="heat-cell l3"></span>多<span style="margin-left:12px">黄色框为今天</span></div></div>'
+    +'<div class="chart-card"><h3>近 7 天学习次数</h3><div class="week-bars">'+bars+'</div></div>'
+    +'<div class="today-tip">'+tip+'</div>';
+  document.getElementById("btn-back").addEventListener("click",function(){location.hash="#/home";});
+}
+/* ==================== 游戏视图（桥接 games.js） ==================== */
+function renderGame(g){
+  var app=document.getElementById("app");
+  if(typeof Games==="undefined"){
+    app.innerHTML='<div class="empty"><p>游戏模块未加载，请确认 js/games.js 存在。</p></div>';
+    return;
+  }
+  Games.ensureCss();
+  var back=function(){ location.hash="#/games"; };
+  if(g==="24")Games.render24(app,back);
+  else if(g==="sudoku")Games.renderSudoku(app,back);
+  else if(g==="match")Games.renderMatch(app,back);
+  else location.hash="#/games";
+}
+function renderGameCenter(){
+  var app=document.getElementById("app");
+  if(typeof Games==="undefined"){
+    app.innerHTML='<div class="empty"><p>游戏模块未加载，请确认 js/games.js 存在。</p></div>';
+    return;
+  }
+  Games.ensureCss();
+  Games.renderCenter(app,function(r){ location.hash=r; });
+}
+
+/* ==================== 路由 ==================== */
+function route(){
+  var h=location.hash, m;
+  if(m=h.match(/#\/lesson\/(.+)/))renderLesson(decodeURIComponent(m[1]));
+  else if(h==="#/daily")renderDaily();
+  else if(h==="#/errors")renderErrors();
+  else if(h==="#/stats")renderStats();
+  else if(h==="#/games")renderGameCenter();
+  else if(m=h.match(/#\/game\/(.+)/))renderGame(decodeURIComponent(m[1]));
+  else renderHome();
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",route);
+
+/* ==================== 大字模式 ==================== */
+function applyBigFont(){
+  document.body.classList.toggle("big-mode",state.bigFont);
+  document.getElementById("btn-bigfont").classList.toggle("active",state.bigFont);
+}
+document.getElementById("btn-bigfont").addEventListener("click",function(){
+  state.bigFont=!state.bigFont; saveState(); applyBigFont();
+});
+
+/* ==================== 初始化 ==================== */
+applyBigFont();
+updateBadges();
+if(!location.hash)location.hash="#/home";
+route();
+if("serviceWorker" in navigator){
+  window.addEventListener("load",function(){
+    try{ navigator.serviceWorker.register("sw.js").catch(function(){}); }catch(e){}
+  });
+}
+
+</script>
+</body>
+</html>

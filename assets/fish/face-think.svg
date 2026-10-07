@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" aria-label="闹闹鱼思考">
+  <defs>
+    <linearGradient id="ft-body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2B8A83"/>
+      <stop offset="1" stop-color="#3E6FB2"/>
+    </linearGradient>
+  </defs>
+  <!-- tail -->
+  <path d="M88 70 L108 56 Q112 70 106 80 Q112 86 106 92 L88 84 Z" fill="#3E6FB2"/>
+  <!-- body -->
+  <ellipse cx="56" cy="72" rx="40" ry="33" fill="url(#ft-body)"/>
+  <!-- belly -->
+  <ellipse cx="56" cy="84" rx="25" ry="18" fill="#FCFDF9"/>
+  <!-- cheek-rest fin -->
+  <path d="M34 78 Q24 86 28 96 Q38 92 42 84 Z" fill="#2B8A83"/>
+  <!-- mortarboard -->
+  <path d="M30 36 L62 26 L92 36 L62 46 Z" fill="#2A4A7F"/>
+  <rect x="50" y="42" width="24" height="8" rx="3" fill="#2A4A7F"/>
+  <line x1="84" y1="38" x2="88" y2="54" stroke="#E9A23B" stroke-width="2"/>
+  <circle cx="88" cy="56" r="3" fill="#E9A23B"/>
+  <!-- eyes glancing up -->
+  <circle cx="44" cy="64" r="8.5" fill="#fff"/>
+  <circle cx="68" cy="64" r="8.5" fill="#fff"/>
+  <circle cx="46" cy="61" r="4" fill="#22303C"/>
+  <circle cx="70" cy="61" r="4" fill="#22303C"/>
+  <circle cx="47.5" cy="59.5" r="1.4" fill="#fff"/>
+  <circle cx="71.5" cy="59.5" r="1.4" fill="#fff"/>
+  <!-- small o mouth -->
+  <circle cx="56" cy="78" r="4" fill="#8A4638"/>
+  <!-- cheeks -->
+  <circle cx="34" cy="74" r="4.5" fill="#F6BBA3" opacity="0.85"/>
+  <circle cx="78" cy="74" r="4.5" fill="#F6BBA3" opacity="0.85"/>
+  <!-- question mark -->
+  <path d="M96 20 q6 -6 11 -1 q4 4 0 8 q-3 2 -3 6" stroke="#E9A23B" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <circle cx="104" cy="40" r="2.6" fill="#E9A23B"/>
+</svg>

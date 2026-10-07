@@ -3,16 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>小学奥数举一反三</title>
+<title>【闹闹鱼】奥数训练课堂</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="小学奥数">
+<meta name="apple-mobile-web-app-title" content="闹闹鱼奥数">
+<meta name="description" content="【闹闹鱼】奥数训练课堂：小学1-6年级约200讲奥数思维训练，动画讲解、例题精讲、三档难度、错题再练，可离线学习。">
 <link rel="apple-touch-icon" href="assets/icon-180.png">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232B8A83'/%3E%3Ctext x='32' y='45' font-size='36' text-anchor='middle' fill='%23FFFFFF' font-family='KaiTi,serif'%3E%E6%95%B0%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%232B8A83'/%3E%3Ccircle cx='26' cy='28' r='5' fill='%23fff'/%3E%3Cpath d='M18 44 q14 -10 28 0 q-14 6 -28 0z' fill='%237FC3B8'/%3E%3C/svg%3E">
 <script src="js/gen.js"></script>
+<script src="js/gen2-g34.js"></script>
+<script src="js/gen2-g56.js"></script>
 <script src="js/games.js"></script>
+<script src="js/anime.js"></script>
+<script src="js/anime-t1.js"></script>
+<script src="js/anime-t2.js"></script>
+<script src="js/anime-t3.js"></script>
 <script src="data/lessons-seed.js"></script>
 <script src="data/lessons-g1a.js"></script>
 <script src="data/lessons-g1b.js"></script>
@@ -23,6 +30,23 @@
 <script src="data/lessons-g2c.js"></script>
 <script src="data/lessons-g2d.js"></script>
 <script src="data/lessons-g2e.js"></script>
+<script src="data/upgrade-g1g2.js"></script>
+<script src="data/lessons-g3a.js"></script>
+<script src="data/lessons-g3b.js"></script>
+<script src="data/lessons-g3c.js"></script>
+<script src="data/lessons-g3d.js"></script>
+<script src="data/lessons-g4a.js"></script>
+<script src="data/lessons-g4b.js"></script>
+<script src="data/lessons-g4c.js"></script>
+<script src="data/lessons-g4d.js"></script>
+<script src="data/lessons-g5a.js"></script>
+<script src="data/lessons-g5b.js"></script>
+<script src="data/lessons-g5c.js"></script>
+<script src="data/lessons-g5d.js"></script>
+<script src="data/lessons-g6a.js"></script>
+<script src="data/lessons-g6b.js"></script>
+<script src="data/lessons-g6c.js"></script>
+<script src="data/lessons-g6d.js"></script>
 <style>
 /* ============ 设计变量 ============ */
 :root{
@@ -66,6 +90,26 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .hidden{display:none !important}
 .fig{display:block;max-width:100%;height:auto;margin:10px auto}
 svg{max-width:100%}
+/* 情境主题图（应用题配图，程序化SVG示意图除外） */
+img.scene{width:100%;border-radius:12px;margin:8px auto;display:block;max-height:220px;object-fit:cover;box-shadow:var(--shadow)}
+/* 小鱼 IP：加载遮罩 */
+#load-mask{position:fixed;inset:0;z-index:999;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .5s}
+#load-mask.fade{opacity:0;pointer-events:none}
+#load-mask img{width:120px;height:120px;object-fit:contain;animation:fishbob 1.6s ease-in-out infinite}
+#load-mask .lm-t{font-size:20px;font-weight:800;color:var(--teal-dark);letter-spacing:2px}
+#load-mask .lm-s{font-size:13px;color:var(--ink-faint)}
+@keyframes fishbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+/* 小鱼庆祝弹层 */
+#fish-celebrate{position:fixed;left:50%;top:42%;transform:translate(-50%,-50%) scale(.8);z-index:998;text-align:center;opacity:0;pointer-events:none;transition:all .3s;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 26px;box-shadow:var(--shadow-lg)}
+#fish-celebrate.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+#fish-celebrate img{width:110px;height:110px;object-fit:contain}
+#fish-celebrate .fc-t{font-size:18px;font-weight:800;color:var(--teal-dark);margin-top:6px}
+#fish-celebrate .fc-s{font-size:13px;color:var(--ink-soft);margin-top:2px}
+/* 思维闯关 section 高亮 */
+.section-card.pk{border:1.5px solid var(--amber);background:linear-gradient(180deg,#FFFBF2,#FFFDF8)}
+.section-card.pk>h3{color:#B97A1F}
+/* 小鱼轻量反馈 */
+.fish-inline{width:44px;height:44px;object-fit:contain;vertical-align:middle}
 
 /* ============ 顶栏 ============ */
 .topbar{
@@ -437,6 +481,7 @@ body.big-mode .lc-title{font-size:20px}
   .dh-title{font-size:22px}
   .heatmap{gap:2px}
   .brand-sub{display:none}
+  .brand-name{font-size:18px;letter-spacing:1px}
   .icon-btn{padding:8px 10px;font-size:13px}
   .stat-cards{grid-template-columns:repeat(2,1fr);gap:11px}
   .week-bars{gap:4px}
@@ -451,10 +496,10 @@ body.big-mode .lc-title{font-size:20px}
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand" onclick="location.hash='#/home'">
-      <div class="brand-seal">数</div>
+      <img src="assets/fish/fish-core.png" alt="闹闹鱼" style="width:42px;height:42px;object-fit:contain">
       <div>
-        <div class="brand-name">小学奥数</div>
-        <div class="brand-sub">举 一 反 三 · 启 迪 思 维</div>
+        <div class="brand-name">闹闹鱼奥数</div>
+        <div class="brand-sub">【闹闹鱼】奥数训练课堂 · 1-6年级</div>
       </div>
     </div>
     <div class="top-actions">
@@ -471,6 +516,17 @@ body.big-mode .lc-title{font-size:20px}
 
 <main class="wrap" id="app"></main>
 
+<div id="load-mask">
+  <img src="assets/fish/fish-load.png" alt="闹闹鱼加载中">
+  <div class="lm-t">【闹闹鱼】奥数训练课堂</div>
+  <div class="lm-s">小鱼正在准备今天的思维大餐…</div>
+</div>
+<div id="fish-celebrate">
+  <img src="assets/fish/fish-cheer.png" alt="闹闹鱼庆祝">
+  <div class="fc-t">思维闯关成功！</div>
+  <div class="fc-s">闹闹鱼为你骄傲，集到一颗星 ⭐</div>
+</div>
+
 <div id="toast"></div>
 
 <script>
@@ -486,8 +542,38 @@ var LESSONS = [].concat(
   arr(typeof L_G2B!=="undefined"?L_G2B:null),
   arr(typeof L_G2C!=="undefined"?L_G2C:null),
   arr(typeof L_G2D!=="undefined"?L_G2D:null),
-  arr(typeof L_G2E!=="undefined"?L_G2E:null)
+  arr(typeof L_G2E!=="undefined"?L_G2E:null),
+  arr(typeof L_G3A!=="undefined"?L_G3A:null),
+  arr(typeof L_G3B!=="undefined"?L_G3B:null),
+  arr(typeof L_G3C!=="undefined"?L_G3C:null),
+  arr(typeof L_G3D!=="undefined"?L_G3D:null),
+  arr(typeof L_G4A!=="undefined"?L_G4A:null),
+  arr(typeof L_G4B!=="undefined"?L_G4B:null),
+  arr(typeof L_G4C!=="undefined"?L_G4C:null),
+  arr(typeof L_G4D!=="undefined"?L_G4D:null),
+  arr(typeof L_G5A!=="undefined"?L_G5A:null),
+  arr(typeof L_G5B!=="undefined"?L_G5B:null),
+  arr(typeof L_G5C!=="undefined"?L_G5C:null),
+  arr(typeof L_G5D!=="undefined"?L_G5D:null),
+  arr(typeof L_G6A!=="undefined"?L_G6A:null),
+  arr(typeof L_G6B!=="undefined"?L_G6B:null),
+  arr(typeof L_G6C!=="undefined"?L_G6C:null),
+  arr(typeof L_G6D!=="undefined"?L_G6D:null)
 ).sort(function(a,b){ return (a.grade-b.grade) || (a.idx-b.idx); });
+
+/* 1-2 年级补丁：思维培优 + 例题动画（g3-6 已内联，直接用） */
+if(typeof UPG!=="undefined" && UPG){
+  LESSONS.forEach(function(L){
+    var p = UPG[L.id];
+    if(!p) return;
+    if(p.peiyou && p.peiyou.length) L.peiyou = p.peiyou;
+    if(p.anim && p.anim.forEach){
+      p.anim.forEach(function(a){
+        if(a && typeof a.ei==="number" && L.examples[a.ei]) L.examples[a.ei].anim = a.spec;
+      });
+    }
+  });
+}
 
 /* 题目注册：生成稳定题号，建立 QMAP */
 var QMAP={};
@@ -501,15 +587,54 @@ LESSONS.forEach(function(L){
   });
   L.practice.forEach(function(q,i){ regQ(L.id+"-p"+i,q,L.id,"练习"); });
   L.quiz.forEach(function(q,i){ regQ(L.id+"-z"+i,q,L.id,"小测"); });
+  (L.peiyou||[]).forEach(function(q,i){ regQ(L.id+"-py"+(i+1),q,L.id,"思维闯关"); });
 });
 function lessonById(id){
   for(var i=0;i<LESSONS.length;i++){ if(LESSONS[i].id===id)return LESSONS[i]; }
   return null;
 }
+var GRADE_NAMES={1:"一年级",2:"二年级",3:"三年级",4:"四年级",5:"五年级",6:"六年级"};
+function gradeName(g){ return GRADE_NAMES[g]||(""+g+"年级"); }
+function fishCelebrate(){
+  var el=document.getElementById("fish-celebrate");
+  if(!el)return;
+  el.classList.add("show");
+  setTimeout(function(){ el.classList.remove("show"); },1800);
+}
+/* 错题同类推荐：优先同讲同 section 未做题，不足用生成器补 */
+function recommendSimilar(parent, errItem){
+  var box=document.createElement("div");
+  box.style.marginTop="10px";
+  var btn=document.createElement("button");
+  btn.type="button"; btn.className="q-mini-btn"; btn.textContent="🐟 再练 1 道同类题";
+  box.appendChild(btn);
+  btn.addEventListener("click",function(){
+    btn.remove();
+    var cand=null;
+    var L=lessonById(errItem.lessonId);
+    if(L){
+      var pool=[];
+      (L.examples||[]).forEach(function(e){ e.variants.forEach(function(v){pool.push({q:v,section:"举一反三"});}); });
+      (L.practice||[]).forEach(function(q){pool.push({q:q,section:"练习"});});
+      (L.peiyou||[]).forEach(function(q){pool.push({q:q,section:"思维闯关"});});
+      for(var i=0;i<pool.length;i++){
+        var qid=pool[i].q._qid;
+        if(qid && !state.done[qid] && !state.errors[qid]){ cand=pool[i]; break; }
+      }
+    }
+    if(!cand && L && L.gen && typeof Gen!=="undefined" && Gen.get){
+      try{ var g=Gen.get(L.gen.type,1); if(g&&g[0])cand={q:g[0],section:"练习"}; }catch(e){}
+    }
+    if(!cand){ box.innerHTML='<div class="q-result ok" style="margin-top:6px"><div>暂无更多同类题，先去攻克其他错题吧～</div></div>'; return; }
+    var qq=cand.q;
+    mountQuestion(box,qq,qq._qid||("sim-"+Date.now()),{index:"",section:cand.section,lessonId:L?L.id:null});
+  });
+  parent.appendChild(box);
+}
 
 /* ==================== 状态与本地存储 ==================== */
 var STORE_KEY="aoshu-app-v1";
-var state={ learned:{}, fav:{}, mastered:{}, done:{}, errors:{},
+var state={ learned:{}, fav:{}, mastered:{}, done:{}, errors:{}, stars:{},
   bigFont:false, grade:"all", tag:"all", status:"all", search:"", daily:{} };
 function saveState(){ try{ localStorage.setItem(STORE_KEY,JSON.stringify(state)); }catch(e){} }
 function loadState(){
@@ -518,7 +643,7 @@ function loadState(){
     if(!s)return;
     var o=JSON.parse(s);
     state.learned=o.learned||{}; state.fav=o.fav||{}; state.mastered=o.mastered||{};
-    state.done=o.done||{}; state.errors=o.errors||{};
+    state.done=o.done||{}; state.errors=o.errors||{}; state.stars=o.stars||{};
     state.bigFont=!!o.bigFont; state.grade=o.grade||"all";
     state.tag=o.tag||"all"; state.status=o.status||"all";
     state.search=o.search||""; state.daily=o.daily||{};
@@ -604,6 +729,7 @@ function lessonQuestionCount(L){
   var n=0;
   L.examples.forEach(function(e){ n+=e.variants.length; });
   n+=L.practice.length; n+=L.quiz.length;
+  n+=(L.peiyou||[]).length;
   if(L.gen)n+=L.gen.n||0;
   return n;
 }
@@ -674,13 +800,23 @@ function mountQuestion(parent,q,qid,meta){
     var icon=correct
       ?'<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>'
       :'<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    var fishHtml=correct
+      ?'<img class="fish-inline" src="assets/fish/fish-happy.png" alt="真棒">'
+      :'<img class="fish-inline" src="assets/fish/fish-encourage.png" alt="加油">';
     slot.innerHTML='<div class="q-result '+(correct?"ok":"no")+'">'
-      +'<div class="qr-title">'+icon+(correct?"回答正确":"再想一想")+'</div>'
+      +'<div class="qr-title">'+icon+(correct?"回答正确，闹闹鱼为你点赞":"再想一想，闹闹鱼陪你再来")+fishHtml+'</div>'
       +(correct?"":'<div>正确答案：<span class="qr-answer">'+answerText(q)+'</span></div>')
       +'<div class="qr-analysis"><b>解析：</b>'+q.analysis+'</div></div>'
-      +'<div class="q-actions"><button class="q-mini-btn" type="button" data-act="retry">再做一次</button></div>';
+      +'<div class="q-actions"><button class="q-mini-btn" type="button" data-act="retry">再做一次</button>'
+      +(correct?"":'<button class="q-mini-btn" type="button" data-act="sim">🐟 再练同类</button>')
+      +'</div>';
     slot.querySelector('[data-act=retry]').addEventListener("click",function(){
       slot.innerHTML=""; locked=false; buildArea();
+    });
+    var simBtn=slot.querySelector('[data-act=sim]');
+    if(simBtn)simBtn.addEventListener("click",function(){
+      simBtn.remove();
+      recommendSimilar(slot,{lessonId:meta.lessonId,section:meta.section});
     });
   }
   function finish(correct){
@@ -790,7 +926,7 @@ function lessonCardHtml(L){
 }
 function gridHtml(list){
   if(!list.length){
-    return '<div class="empty"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><p>没有符合条件的讲，换个筛选条件试试吧</p></div>';
+    return '<div class="empty"><img src="assets/fish/fish-empty.png" alt="闹闹鱼" style="width:90px;height:90px;object-fit:contain;margin:0 auto 10px"><p>没有符合条件的讲，换个筛选条件试试吧</p></div>';
   }
   return list.map(lessonCardHtml).join("");
 }
@@ -801,7 +937,7 @@ function renderHome(){
   var streak=streakDays(), answers=totalAnswers();
   var pct=total?Math.round(learnedCount/total*100):0;
 
-  var gradeDefs=[["all","全部"],["1","一年级"],["2","二年级"]];
+  var gradeDefs=[["all","全部"],["1","一年级"],["2","二年级"],["3","三年级"],["4","四年级"],["5","五年级"],["6","六年级"]];
   var gradeTabs=gradeDefs.map(function(g){
     return '<button class="tab'+(state.grade===g[0]?" active":"")+'" data-grade="'+g[0]+'" type="button">'+g[1]+'</button>';
   }).join("");
@@ -815,8 +951,8 @@ function renderHome(){
 
   document.getElementById("app").innerHTML=
     '<section class="hero"><div>'
-    +'<div class="hero-title">小学奥数 · 举一反三</div>'
-    +'<div class="hero-desc">45 讲思维训练 · 例题分步讲透 · 会一道就能会一类</div>'
+    +'<div class="hero-title">【闹闹鱼】奥数训练课堂</div>'
+    +'<div class="hero-desc">1-6年级 '+total+' 讲思维训练 · 动画讲题 · 三档难度 · 错题再练</div>'
     +'<div class="hero-stats">'
     +'<div class="stat"><div class="stat-num">'+learnedCount+'</div><div class="stat-name">已学讲数</div></div>'
     +'<div class="stat"><div class="stat-num">'+answers+'</div><div class="stat-name">累计答题</div></div>'
@@ -874,6 +1010,40 @@ function renderHome(){
   document.getElementById("quick-errors").addEventListener("click",function(){location.hash="#/errors";});
   document.getElementById("quick-stats").addEventListener("click",function(){location.hash="#/stats";});
 }
+/* 例题动画：规范化 spec + 实例化校验；不可靠则不挂载，回退静态分步解析 */
+function cleanAnim(spec){
+  if(!spec || typeof Anime==="undefined" || !Anime.TEMPLATES) return null;
+  if(!Anime.TEMPLATES[spec.type]) return null;
+  var s;
+  try{ s=JSON.parse(JSON.stringify(spec)); }catch(e){ return null; }
+  if(!s.unit) s.unit="米";
+  if(s.type==="meet"){ if(typeof s.a!=="string")s.a="甲"; if(typeof s.b!=="string")s.b="乙"; }
+  if(s.type==="chase"){ if(typeof s.fast!=="string")s.fast="快者"; if(typeof s.slow!=="string")s.slow="慢者"; }
+  if(s.type==="travel"){ if(typeof s.from!=="string")s.from="起点"; if(typeof s.to!=="string")s.to="终点"; }
+  if(s.type==="roundnum"){
+    if(!(s.terms instanceof Array) || !s.terms.length){
+      var expr=(s.expr||"").split("=")[0];
+      s.terms=expr.split(/[+\-]/).map(function(x){return Number(x);}).filter(function(x){return !isNaN(x);});
+    }
+    if(s.terms.length<2) return null;
+    if(s.pairs instanceof Array){
+      s.pairs=s.pairs.map(function(pr){
+        return (pr||[]).map(function(v){
+          if(typeof v==="number" && v<s.terms.length) return v;
+          var idx=s.terms.indexOf(v); return idx<0?0:idx;
+        });
+      });
+    }
+  }
+  try{
+    var b=Anime.TEMPLATES[s.type](s);
+    var blob=(b.final||"")+" "+JSON.stringify(b.calc||{});
+    (b.steps||[]).forEach(function(st){ blob+=" "+(st.say||""); });
+    if(/undefined|NaN/i.test(blob)) return null;
+    return s;
+  }catch(e){ return null; }
+}
+
 /* ==================== 视图：讲详情 ==================== */
 function renderLesson(id){
   var L=lessonById(id);
@@ -882,7 +1052,7 @@ function renderLesson(id){
   document.getElementById("app").innerHTML=
     '<button class="back-link" id="btn-back" type="button"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>返回首页</button>'
     +'<div class="detail-head grade'+L.grade+'">'
-    +'<div><div class="dh-badge">'+(L.grade===1?"一年级":"二年级")+" · "+L.tag+'</div>'
+    +'<div><div class="dh-badge">'+gradeName(L.grade)+" · "+L.tag+'</div>'
     +'<div class="dh-title">第 '+L.idx+' 讲　'+L.title+'</div></div>'
     +'<div class="dh-actions">'
     +'<button class="dh-btn" id="btn-fav" type="button"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 1 0-7.8 7.8l1.1 1L12 21l7.7-7.6 1.1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>收藏</button>'
@@ -916,6 +1086,15 @@ function renderLesson(id){
     var q=document.createElement("div");
     q.className="ex-q"; q.innerHTML=e.html;
     block.appendChild(q);
+
+    /* 动画讲解：规范化并校验通过后挂载播放器，否则保留静态分步解析 */
+    var clean=cleanAnim(e.anim);
+    if(clean){
+      try{
+        var h=Anime.mount(block, clean);
+        liveHandles.push(h);
+      }catch(err){ console.warn("anim mount fail:", L.id, "例"+(ei+1), err); }
+    }
 
     var stepsBox=document.createElement("div");
     stepsBox.className="steps-box";
@@ -976,6 +1155,33 @@ function renderLesson(id){
   });
   qzCard.appendChild(qzHolder);
   body.appendChild(qzCard);
+
+  /* 思维闯关（peiyou）：全对集一星 */
+  if(L.peiyou && L.peiyou.length){
+    var pkCard=document.createElement("div");
+    pkCard.className="section-card pk";
+    var starred=state.stars[L.id];
+    pkCard.innerHTML='<h3><span class="sec-no">★</span>思维闯关 · 挑战培优'
+      +(starred?'　<span style="font-size:13px;color:#B97A1F;font-weight:700">已集星 ⭐</span>':'　<span style="font-size:13px;color:var(--ink-faint);font-weight:400">全部答对集星 ⭐</span>')
+      +'</h3><div style="font-size:14px;color:var(--ink-soft);margin-bottom:12px">比基础更绕一点的思维题，敢不敢挑战？全对闹闹鱼送你一颗星！</div>';
+    var pkHolder=document.createElement("div");
+    L.peiyou.forEach(function(pq,i){
+      mountQuestion(pkHolder,pq,L.id+"-py"+(i+1),{index:i+1,section:"思维闯关",lessonId:L.id});
+    });
+    pkCard.appendChild(pkHolder);
+    body.appendChild(pkCard);
+    /* 监听：思维闯关全部答对 → 集星 + 庆祝 */
+    var pkObs=new MutationObserver(function(){
+      if(state.stars[L.id])return;
+      var all=L.peiyou.every(function(pq,i){ return state.done[L.id+"-py"+(i+1)]===true; });
+      if(all){
+        state.stars[L.id]=true; saveState();
+        fishCelebrate(); toast("思维闯关全对，集星成功 ⭐");
+      }
+    });
+    pkObs.observe(body,{childList:true,subtree:true});
+    liveObservers.push(pkObs);
+  }
 
   /* 完成本讲 */
   var finCard=document.createElement("div");
@@ -1179,7 +1385,16 @@ function renderGameCenter(){
 }
 
 /* ==================== 路由 ==================== */
+var liveHandles=[];   /* 当前讲页挂载的动画播放器句柄 */
+var liveObservers=[]; /* 当前讲页的 MutationObserver */
+function teardownLive(){
+  liveHandles.forEach(function(h){ try{ h.destroy(); }catch(e){} });
+  liveHandles=[];
+  liveObservers.forEach(function(o){ try{ o.disconnect(); }catch(e){} });
+  liveObservers=[];
+}
 function route(){
+  teardownLive();
   var h=location.hash, m;
   if(m=h.match(/#\/lesson\/(.+)/))renderLesson(decodeURIComponent(m[1]));
   else if(h==="#/daily")renderDaily();
@@ -1206,6 +1421,8 @@ applyBigFont();
 updateBadges();
 if(!location.hash)location.hash="#/home";
 route();
+setTimeout(function(){ var m=document.getElementById("load-mask"); if(m)m.classList.add("fade"); },350);
+setTimeout(function(){ var m=document.getElementById("load-mask"); if(m&&m.parentNode)m.parentNode.removeChild(m); },1200);
 if("serviceWorker" in navigator){
   window.addEventListener("load",function(){
     try{ navigator.serviceWorker.register("sw.js").catch(function(){}); }catch(e){}

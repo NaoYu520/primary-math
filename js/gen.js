@@ -652,5 +652,11 @@ var Gen = (function () {
     return get(type, n, rand);
   }
 
-  return { get: get, pool: pool, TYPES: Object.keys(GENS) };
+  function register(types, poolmap) {
+    if (types) for (var k in types) if (Object.prototype.hasOwnProperty.call(types, k)) GENS[k] = types[k];
+    if (poolmap) for (var m in poolmap) if (Object.prototype.hasOwnProperty.call(poolmap, m)) LESSON2TYPE[m] = poolmap[m];
+  }
+
+  return { get: get, pool: pool, register: register, TYPES: Object.keys(GENS) };
 })();
+if (typeof module !== "undefined" && module.exports) module.exports = { Gen: Gen };
